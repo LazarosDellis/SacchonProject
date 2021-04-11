@@ -11,6 +11,7 @@ public class MainApp {
 
         EntityManager em = JpaUtil.getEntityManager();
         Business.createData(em);
+//     sss
         em.close();
     }
 }
