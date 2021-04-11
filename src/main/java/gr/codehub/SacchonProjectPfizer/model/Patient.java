@@ -7,7 +7,7 @@ import java.util.List;
 @Data
 @Entity
 public class Patient {
-    //int test 8
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
