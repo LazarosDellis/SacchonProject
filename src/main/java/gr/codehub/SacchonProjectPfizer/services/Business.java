@@ -10,7 +10,7 @@ public class Business {
     public static void createData(EntityManager em) {
 
         PatientRepository patientRepository = new PatientRepository(em);
-       // Patient patient1 = new Patient();
+        // Patient patient1 = new Patient();
 
 //        patient1.setFullName("Lazaros Dellis");
 //        patient1.setEmail("lazarosdellis@gmail.com");
