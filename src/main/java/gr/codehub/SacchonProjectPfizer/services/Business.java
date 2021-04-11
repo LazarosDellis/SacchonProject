@@ -77,6 +77,9 @@ public class Business {
         consultationRepository.save(consultation);
         System.out.println(consultation);
 
+    }
+
+    public static void testMe(EntityManager em) {
 
     }
 }

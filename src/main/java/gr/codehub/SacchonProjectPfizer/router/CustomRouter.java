@@ -1,12 +1,10 @@
 package gr.codehub.SacchonProjectPfizer.router;
-
-import gr.codehub.SacchonProjectPfizer.resource.DoctorResource;
-import gr.codehub.SacchonProjectPfizer.resource.PatientResource;
-import gr.codehub.SacchonProjectPfizer.resource.PingServerResource;
+import gr.codehub.SacchonProjectPfizer.resource.*;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
 public class CustomRouter {
+
 
     private Application application;
 
@@ -30,12 +28,14 @@ public class CustomRouter {
         router.attach("/doctor/{id}", DoctorResource.class);//get, put, delete
 
 
+        //router.attach("/cart", CartListResource.class); //get, post
+        //router.attach("/cart/{id}", CartResource.class);//get, put, delete
 
-
-
-
+        //router.attach("/cart/{id}/product", CartProductListResource.class); //get, post
+        //router.attach("/cart/{id}/product/{pid}", CartProductResource.class);//get, put, delete
         return router;
 
     }
+
 
 }

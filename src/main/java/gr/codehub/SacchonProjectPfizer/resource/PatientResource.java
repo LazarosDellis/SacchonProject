@@ -52,13 +52,11 @@ public class PatientResource extends ServerResource {
     public PatientRepresentation putPatient(PatientRepresentation patientRepresentation) {
 
         EntityManager em = JpaUtil.getEntityManager();
-        PatientRepository productRepository = new PatientRepository(em);
-        Patient patient = productRepository.read(id);
+        PatientRepository patientRepository = new PatientRepository(em);
+        Patient patient = patientRepository.read(id);
 
         patient.setMeasurements(patientRepresentation.getMeasurement());
-
-
-        productRepository.save(patient);
+        patientRepository.save(patient);
 
         PatientRepresentation patientRepresentation2 = new PatientRepresentation(patient);
         em.close();

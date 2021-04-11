@@ -29,7 +29,7 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 
 
     public Patient getById(int patientId){
-        return entityManager.createQuery("SELECT *  FROM Patient  ",
+        return entityManager.createQuery("SELECT *  FROM Patient",
                 Patient.class)
                 .setParameter("patientId", patientId)
                 .getSingleResult();

@@ -10,5 +10,8 @@
         <module name="SacchonProjectPfizer" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SacchonProjectPfizer" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

@@ -1,9 +1,7 @@
 package gr.codehub.SacchonProjectPfizer.security;
 
 import gr.codehub.SacchonProjectPfizer.jpaUtil.JpaUtil;
-import gr.codehub.SacchonProjectPfizer.model.Doctor;
 import gr.codehub.SacchonProjectPfizer.model.Patient;
-import gr.codehub.SacchonProjectPfizer.repository.DoctorRepository;
 import gr.codehub.SacchonProjectPfizer.repository.PatientRepository;
 import org.restlet.Request;
 import org.restlet.security.Role;
