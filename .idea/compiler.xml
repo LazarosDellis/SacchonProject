@@ -6,8 +6,11 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="SacchonProjectPfizer" />
+        <module name="SacchonProject8" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="SacchonProject8" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>
