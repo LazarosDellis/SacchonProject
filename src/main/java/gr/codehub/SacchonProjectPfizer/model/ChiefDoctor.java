@@ -17,16 +17,6 @@ public class ChiefDoctor {
     private String password;
 
 
-    @OneToMany(mappedBy = "chiefDoctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Doctor>  doctors;
 
-    @OneToMany(mappedBy = "chiefDoctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Patient>  patients;
-
-    @OneToMany(mappedBy = "chiefDoctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Consultation>  consultations;
-
-    @OneToMany(mappedBy = "chiefDoctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Measurement>  measurements;
 
 }

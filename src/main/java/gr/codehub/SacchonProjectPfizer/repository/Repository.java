@@ -1,5 +1,9 @@
 package gr.codehub.SacchonProjectPfizer.repository;
 
+import gr.codehub.SacchonProjectPfizer.model.ChiefDoctor;
+import gr.codehub.SacchonProjectPfizer.model.Doctor;
+import gr.codehub.SacchonProjectPfizer.model.Patient;
+
 import javax.persistence.EntityManager;
 import java.util.List;
 
@@ -70,6 +74,15 @@ public abstract class Repository<T,K> {
             return false;
         }
     }
+
+
+    public  Patient getByUsername(String username){
+        return entityManager.createQuery("SELECT * FROM Patient b ", Patient.class)
+                .setParameter("username", username)
+                .getSingleResult();
+    }
+
+
 
 
 }

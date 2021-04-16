@@ -20,8 +20,7 @@ public class Measurement {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Patient patient;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private ChiefDoctor chiefDoctor;
+
 
 
 

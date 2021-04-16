@@ -15,6 +15,7 @@ public class Patient {
     private String username;
     private String email;
     private String password;
+    private String role;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Consultation> consultations;
@@ -25,7 +26,6 @@ public class Patient {
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Doctor doctor;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private ChiefDoctor chiefDoctor;
+
 
 }
