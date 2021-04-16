@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 
 public class Business {
-    public static void createData(EntityManager em) {
+    public static void testMe(EntityManager em) {
 
         PatientRepository patientRepository = new PatientRepository(em);
 //         Patient patient1 = new Patient();
@@ -25,6 +25,7 @@ public class Business {
         patient.setEmail("barba.evaggelia@gmail.com");
         patient.setPassword("1234");
         patient.setUsername("Lia");
+        patient.setRole("user");
 
 
         patientRepository.save(patient);
@@ -79,7 +80,7 @@ public class Business {
 
     }
 
-    public static void testMe(EntityManager em) {
-
+   //  public static void testMe(EntityManager em) {
+   //  }
     }
-}
+

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>gr.codehub</groupId>
-    <artifactId>SacchonProjectPfizer</artifactId>
+    <artifactId>pfizer-hibernate</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -19,27 +19,9 @@
     </properties>
 
     <dependencies>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
 
-        <!-- persistence -->
-        <dependency>
-            <groupId>com.microsoft.sqlserver</groupId>
-            <artifactId>mssql-jdbc</artifactId>
-            <version>7.0.0.jre8</version>
-        </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.version}</version>
-            <scope>provided</scope>
-        </dependency>
-
+        <!-- restlet libraries -->
         <dependency>
             <groupId>org.restlet.jse</groupId>
             <artifactId>org.restlet</artifactId>
@@ -56,12 +38,37 @@
             <version>${restlet-version}</version>
         </dependency>
 
+
+
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+
+
+        <!-- https://mvnrepository.com/artifact/ch.qos.logback/logback-classic -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>1.2.3</version>
         </dependency>
+        <!-- persistence -->
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>7.0.0.jre8</version>
+        </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.projectlombok/lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <repositories>
@@ -76,7 +83,5 @@
             <url>https://repository-master.mulesoft.org/releases/</url>
         </repository>
     </repositories>
-
-
 
 </project>

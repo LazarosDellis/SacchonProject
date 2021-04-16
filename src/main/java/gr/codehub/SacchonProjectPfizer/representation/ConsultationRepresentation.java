@@ -25,7 +25,7 @@ public class ConsultationRepresentation {
 
             consult = consultation.getConsult();
             date = consultation.getDate();
-            uri = "http://localhost:9000/v1/product/" + consultation.getId();
+            uri = "http://localhost:9000/v1/consultation/" + consultation.getId();
         }
     }
 

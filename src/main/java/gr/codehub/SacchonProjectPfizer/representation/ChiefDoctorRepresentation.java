@@ -5,5 +5,4 @@ public class ChiefDoctorRepresentation {
         private int id;
 
 
-
 }

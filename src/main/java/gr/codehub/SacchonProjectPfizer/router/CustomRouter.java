@@ -21,10 +21,10 @@ public class CustomRouter {
 
     public Router protectedResources(){
         Router router = new Router();
-        router.attach("/patient", PatientResource.class); //get, post
+        router.attach("/patient", PatientListResource.class); //get, post
         router.attach("/patient/{id}", PatientResource.class); //get, put, delete
 
-        router.attach("/doctor", DoctorResource.class);//get, post
+        router.attach("/doctor", DoctorListResource.class);//get, post
         router.attach("/doctor/{id}", DoctorResource.class);//get, put, delete
 
 

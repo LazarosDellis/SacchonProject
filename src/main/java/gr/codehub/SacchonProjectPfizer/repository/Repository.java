@@ -77,7 +77,7 @@ public abstract class Repository<T,K> {
 
 
     public  Patient getByUsername(String username){
-        return entityManager.createQuery("SELECT * FROM Patient b ", Patient.class)
+        return entityManager.createQuery("SELECT * FROM Patient", Patient.class)
                 .setParameter("username", username)
                 .getSingleResult();
     }
