@@ -1,8 +1,6 @@
 package gr.codehub.SacchonProjectPfizer.router;
 
-import gr.codehub.SacchonProjectPfizer.resource.DoctorResource;
-import gr.codehub.SacchonProjectPfizer.resource.PatientResource;
-import gr.codehub.SacchonProjectPfizer.resource.PingServerResource;
+import gr.codehub.SacchonProjectPfizer.resource.*;
 import org.restlet.Application;
 import org.restlet.routing.Router;
 
@@ -17,6 +15,7 @@ public class CustomRouter {
     public Router publicResources() {
         Router router = new Router();
         router.attach("/ping", PingServerResource.class); //get
+      //  router.attach("/register", RegisterResource.class);
         return router;
     }
 
@@ -30,6 +29,8 @@ public class CustomRouter {
         router.attach("/doctor/{id}", DoctorResource.class);//get, put, delete
 
 
+        router.attach("/chiefDoctor", ChiefDoctorResource.class);
+        router.attach("/chiefDoctor/{id}", ChiefDoctorResource.class);
 
 
 

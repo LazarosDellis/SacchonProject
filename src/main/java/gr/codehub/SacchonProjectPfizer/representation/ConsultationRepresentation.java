@@ -17,15 +17,16 @@ public class ConsultationRepresentation {
     private Date date;
 
     private String uri;
+    private int patientId;
 
 
     // mappers
     public ConsultationRepresentation ( Consultation consultation) {
         if (consultation != null) {
-
-            consult = consultation.getConsult();
             date = consultation.getDate();
-            uri = "http://localhost:9000/v1/product/" + consultation.getId();
+            if(consultation.getPatient() !=null)
+                patientId = consultation.getPatient().getId();
+            uri = "http://localhost:9000/v1/cosultation/" + consultation.getId();
         }
     }
 

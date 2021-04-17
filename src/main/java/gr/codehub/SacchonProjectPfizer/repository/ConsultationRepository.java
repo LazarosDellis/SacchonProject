@@ -1,8 +1,10 @@
 package gr.codehub.SacchonProjectPfizer.repository;
 
 import gr.codehub.SacchonProjectPfizer.model.Consultation;
+import gr.codehub.SacchonProjectPfizer.model.Patient;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 public class ConsultationRepository extends Repository<Consultation, Integer>{
@@ -29,6 +31,15 @@ public class ConsultationRepository extends Repository<Consultation, Integer>{
                 .setParameter("consultation", consult)
                 .getSingleResult();
     }
+
+    public Patient getPatient(int consultationId){
+        return  entityManager.createQuery("SELECT patient FROM consultation c inner join  where c.id = : consultationId ",
+                Patient.class)
+                .setParameter("consultationId", consultationId)
+                .getSingleResult();
+    }
+
+
 
 
 }

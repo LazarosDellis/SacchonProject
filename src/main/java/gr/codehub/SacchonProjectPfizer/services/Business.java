@@ -5,20 +5,42 @@ import gr.codehub.SacchonProjectPfizer.repository.*;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
+import java.util.List;
 
 public class Business {
+
+
+
+    public static void testMe(EntityManager em ) {
+        ConsultationRepository consultationRepository = new ConsultationRepository(em);
+        PatientRepository patientRepository = new PatientRepository(em);
+        Patient patient = new Patient();
+        patient.setFullName("John Doe");
+        patient.setUsername("john");
+        patient.setPassword("1234");
+
+        patientRepository.save(patient);
+
+        Consultation consultation = new Consultation();
+
+        consultation.setDate(new Date());
+        consultation.setPatient(patient);
+
+        int consultationId = consultation.getId();
+        Patient patientDb = consultationRepository.getPatient(consultationId);
+
+
+    }
+
+
+
+
+
     public static void createData(EntityManager em) {
 
+
         PatientRepository patientRepository = new PatientRepository(em);
-//         Patient patient1 = new Patient();
-//
-//        patient1.setFullName("Lazaros Dellis");
-//        patient1.setEmail("lazarosdellis@gmail.com");
-//        patient1.setPassword("1234");
-//        patient1.setUsername("Larry");
-//
-//        patientRepository.save(patient1);
-//        System.out.println(patient1);
+
 
         Patient patient = new Patient();
         patient.setFullName("Evaggelia Barba");
@@ -79,4 +101,7 @@ public class Business {
 
 
     }
+
+
+
 }

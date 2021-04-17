@@ -5,6 +5,7 @@ import gr.codehub.SacchonProjectPfizer.model.Doctor;
 import gr.codehub.SacchonProjectPfizer.model.Patient;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 public abstract class Repository<T,K> {
@@ -81,6 +82,7 @@ public abstract class Repository<T,K> {
                 .setParameter("username", username)
                 .getSingleResult();
     }
+
 
 
 
