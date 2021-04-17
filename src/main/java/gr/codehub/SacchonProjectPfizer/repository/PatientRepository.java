@@ -6,6 +6,7 @@ import gr.codehub.SacchonProjectPfizer.model.Measurement;
 import gr.codehub.SacchonProjectPfizer.model.Patient;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 
 public class PatientRepository  extends Repository<Patient, Integer> {
@@ -37,18 +38,22 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 
 
 
-    public List<Measurement> getMeasurement(int patientId){
-        return entityManager.createQuery("SELECT *  FROM Patient  WHERE Patient.id = :patientId",
+    public List<Measurement> getMeasurement(Date from, Date to){
+        return entityManager.createQuery("SELECT m  FROM Measurement m inner join Patient p WHERE  m.date >= : from and m.date <= : to ",
                 Measurement.class)
-                .setParameter("patientId", patientId)
+                .setParameter("from", from)
+                .setParameter("to", to)
+                .getResultList();
+
+    }
+
+    public List<Consultation> getConsultations(){
+        return  entityManager.createQuery("SELECT  c FROM Consultation c inner join Patient p  where p.id = : patientId ",
+                Consultation.class)
+
                 .getResultList();
     }
 
-    public List<Consultation> getConsultation(int patientId){
-        return entityManager.createQuery("SELECT *  FROM Patient  WHERE Patient.id = :patientId",
-                Consultation.class)
-                .setParameter("patientId", patientId)
-                .getResultList();
-    }
+
 
 }

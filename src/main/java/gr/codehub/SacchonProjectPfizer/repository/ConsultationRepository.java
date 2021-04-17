@@ -26,17 +26,20 @@ public class ConsultationRepository extends Repository<Consultation, Integer>{
         return Consultation.class.getName();
     }
 
-    public Consultation getByConsult(String consult){
+
+
+
+    public Consultation getByConsult(int  consultationId){
         return entityManager.createQuery("SELECT b FROM Consultation b WHERE b.consult = :consult", Consultation.class)
-                .setParameter("consultation", consult)
+                .setParameter("consultationId", consultationId)
                 .getSingleResult();
     }
 
-    public Patient getPatient(int consultationId){
-        return  entityManager.createQuery("SELECT patient FROM consultation c inner join  where c.id = : consultationId ",
-                Patient.class)
-                .setParameter("consultationId", consultationId)
-                .getSingleResult();
+    public List<Consultation> getConsultations(int patientId){
+        return  entityManager.createQuery("SELECT  c FROM Consultation c inner join Patient p  where p.id = : patientId ",
+                Consultation.class)
+                .setParameter("patientId", patientId)
+                .getResultList();
     }
 
 

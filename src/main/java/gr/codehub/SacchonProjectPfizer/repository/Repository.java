@@ -77,11 +77,18 @@ public abstract class Repository<T,K> {
     }
 
 
-    public  Patient getByUsername(String username){
-        return entityManager.createQuery("SELECT * FROM Patient b ", Patient.class)
-                .setParameter("username", username)
-                .getSingleResult();
-    }
+
+
+
+
+
+
+//
+//    public  Patient getByUsername(String username){
+//        return entityManager.createQuery("SELECT * FROM Patient b ", Patient.class)
+//                .setParameter("username", username)
+//                .getSingleResult();
+//    }
 
 
 

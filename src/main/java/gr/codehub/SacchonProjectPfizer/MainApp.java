@@ -41,7 +41,7 @@ public class MainApp extends Application {
         LOGGER.info("Contacts application starting...");
 
         EntityManager em = JpaUtil.getEntityManager();
-        Business.testMe(em);
+      //  Business.testMe(em);
 
         em.close();
 

@@ -14,21 +14,32 @@ public class Business {
     public static void testMe(EntityManager em ) {
         ConsultationRepository consultationRepository = new ConsultationRepository(em);
         PatientRepository patientRepository = new PatientRepository(em);
-        Patient patient = new Patient();
-        patient.setFullName("John Doe");
-        patient.setUsername("john");
-        patient.setPassword("1234");
-
-        patientRepository.save(patient);
 
         Consultation consultation = new Consultation();
 
         consultation.setDate(new Date());
-        consultation.setPatient(patient);
+        consultation.setConsult("All is ok");
+
+        consultationRepository.save(consultation);
+
+        Patient patient = new Patient();
+        patient.setFullName("Gary Doe");
+        patient.setUsername("Gary");
+        patient.setPassword("1234");
+      //  patient
+
+
+
+
+
+
+
+
 
         int consultationId = consultation.getId();
-        Patient patientDb = consultationRepository.getPatient(consultationId);
+      // List<Consultation> consultations = consultationRepository.getConsultations(patient.getId());
 
+        List<Consultation> consultations = patientRepository.getConsultations();
 
     }
 

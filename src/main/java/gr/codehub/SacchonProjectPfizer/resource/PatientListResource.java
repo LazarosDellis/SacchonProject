@@ -10,13 +10,14 @@ import gr.codehub.SacchonProjectPfizer.representation.ConsultationRepresentation
 import gr.codehub.SacchonProjectPfizer.representation.PatientRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
+import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
-public class PatientListResource {
+public class PatientListResource extends ServerResource {
 
     @Get("json")
     public List<ConsultationRepresentation> getConsult(){

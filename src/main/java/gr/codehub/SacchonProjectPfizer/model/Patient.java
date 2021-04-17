@@ -18,7 +18,7 @@ public class Patient {
     private String role;
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Consultation> consultations;
+    private List<Consultation> consultation;
 
 
 
