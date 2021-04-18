@@ -31,7 +31,7 @@ public class PatientRepresentation {
             measurement = patient.getMeasurements();
             role = patient.getRole();
 
-            uri = "http://localhost:9000/patient/" + patient.getId();
+            uri = "http://localhost:9000/v1/patient/" + patient.getId();
         }
     }
 

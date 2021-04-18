@@ -1,10 +1,12 @@
 package gr.codehub.SacchonProjectPfizer.resource;
 
+import gr.codehub.SacchonProjectPfizer.exception.AuthorizationException;
 import gr.codehub.SacchonProjectPfizer.jpaUtil.JpaUtil;
 
 import gr.codehub.SacchonProjectPfizer.model.Measurement;
 import gr.codehub.SacchonProjectPfizer.repository.MeasurementRepository;
 import gr.codehub.SacchonProjectPfizer.representation.MeasurementRepresentation;
+import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.resource.*;
 
 import javax.persistence.EntityManager;
@@ -19,18 +21,35 @@ public class MeasurementResource extends ServerResource {
     }
 
     @Get("json")
-    public MeasurementRepresentation getMeasurement() {
+    public ApiResult<MeasurementRepresentation> getMeasurement() {
+
+        //authorisation check
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+            // efboleumena try
+        } catch (AuthorizationException e) {
+            return new ApiResult<>(null, 500, e.getMessage());
+        }
+
+
         EntityManager em = JpaUtil.getEntityManager();
         MeasurementRepository measurementRepository = new MeasurementRepository(em);
         Measurement measurement = measurementRepository.read(id);
         MeasurementRepresentation measurementRepresentation2 = new MeasurementRepresentation(measurement);
         em.close();
-        return measurementRepresentation2;
+        return new ApiResult<>(measurementRepresentation2, 200, "ok");
 
     }
 
     @Post("json")
-    public MeasurementRepresentation add(MeasurementRepresentation measurementRepresentationIn){
+    public ApiResult<MeasurementRepresentation> add(MeasurementRepresentation measurementRepresentationIn){
+
+        //authorisation check
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+        } catch (AuthorizationException e) {
+            return new ApiResult<>(null, 500, e.getMessage());
+        }
 
         if (measurementRepresentationIn ==null) return null;
         if (measurementRepresentationIn.createMeasurement() == null) return null;
@@ -40,12 +59,19 @@ public class MeasurementResource extends ServerResource {
         MeasurementRepository measurementRepository = new MeasurementRepository(em);
         measurementRepository.save(measurement);
         MeasurementRepresentation p = new MeasurementRepresentation(measurement);
-        return p;
+        return new ApiResult<>(p, 200, "ok");
     }
 
 
     @Put("json")
-    public MeasurementRepresentation putMeasurement(MeasurementRepresentation measurementRepresentation) {
+    public ApiResult<MeasurementRepresentation> putMeasurement(MeasurementRepresentation measurementRepresentation) {
+
+        //authorisation check
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+        } catch (AuthorizationException e) {
+            return new ApiResult<>(null, 500, e.getMessage());
+        }
 
         EntityManager em = JpaUtil.getEntityManager();
         MeasurementRepository measurementRepository = new MeasurementRepository(em);
@@ -58,7 +84,7 @@ public class MeasurementResource extends ServerResource {
 
         MeasurementRepresentation measurementRepresentation2 = new MeasurementRepresentation(measurement);
         em.close();
-        return measurementRepresentation2;
+        return new ApiResult<>(measurementRepresentation2, 200, "ok");
 
     }
 

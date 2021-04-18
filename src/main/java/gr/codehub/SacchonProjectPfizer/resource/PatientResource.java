@@ -67,10 +67,6 @@ public class PatientResource extends ServerResource {
 
 
 
-
-
-
-
     @Delete("txt")
     public boolean deletePatient() {
         EntityManager em = JpaUtil.getEntityManager();

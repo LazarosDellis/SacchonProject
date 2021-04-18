@@ -18,20 +18,26 @@ public class ConsultationRepresentation {
 
     private String uri;
     private int patientId;
+    private int doctorId;
 
 
     // mappers
-    public ConsultationRepresentation ( Consultation consultation) {
+    public ConsultationRepresentation(Consultation consultation) {
         if (consultation != null) {
+            id = consultation.getId();
             date = consultation.getDate();
-            if(consultation.getPatient() !=null)
+            consult = consultation.getConsult();
+            if (consultation.getDoctor() != null)
+                doctorId = consultation.getDoctor().getId();
+            if (consultation.getPatient() != null)
                 patientId = consultation.getPatient().getId();
-            uri = "http://localhost:9000/v1/cosultation/" + consultation.getId();
+            uri = "http://localhost:9000/v1/consultation/" + consultation.getId();
         }
     }
 
     public Consultation createConsultation() {
         Consultation consultation = new Consultation();
+        consultation.setId(id);
         consultation.setConsult(consult);
         consultation.setDate(date);
 

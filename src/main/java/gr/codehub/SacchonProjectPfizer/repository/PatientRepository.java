@@ -40,6 +40,8 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 
     public List<Measurement> getMeasurement(Date from, Date to){
         return entityManager.createQuery("SELECT m  FROM Measurement m inner join Patient p WHERE  m.date >= : from and m.date <= : to ",
+       // return entityManager.createQuery("SELECT m  FROM Measurement m WHERE  m.date :from and :to ",
+
                 Measurement.class)
                 .setParameter("from", from)
                 .setParameter("to", to)
@@ -48,9 +50,8 @@ public class PatientRepository  extends Repository<Patient, Integer> {
     }
 
     public List<Consultation> getConsultations(){
-        return  entityManager.createQuery("SELECT  c FROM Consultation c inner join Patient p  where p.id = : patientId ",
+        return  entityManager.createQuery("SELECT  c FROM Consultation c ",
                 Consultation.class)
-
                 .getResultList();
     }
 

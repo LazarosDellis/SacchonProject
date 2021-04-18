@@ -1,5 +1,6 @@
 package gr.codehub.SacchonProjectPfizer.resource;
 
+import gr.codehub.SacchonProjectPfizer.exception.AuthorizationException;
 import gr.codehub.SacchonProjectPfizer.jpaUtil.JpaUtil;
 import gr.codehub.SacchonProjectPfizer.model.Consultation;
 import gr.codehub.SacchonProjectPfizer.model.Doctor;
@@ -10,6 +11,7 @@ import gr.codehub.SacchonProjectPfizer.repository.PatientRepository;
 import gr.codehub.SacchonProjectPfizer.representation.ConsultationRepresentation;
 import gr.codehub.SacchonProjectPfizer.representation.DoctorRepresentation;
 import gr.codehub.SacchonProjectPfizer.representation.PatientRepresentation;
+import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.data.Product;
 import org.restlet.resource.*;
 
@@ -28,7 +30,15 @@ public class DoctorResource extends ServerResource {
 
 
     @Get("json")
-    public DoctorRepresentation getDoctor(){
+    public ApiResult<DoctorRepresentation> getDoctor(){
+
+        //authorisation check
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        } catch (AuthorizationException e) {
+            return new ApiResult<>(null, 500, e.getMessage());
+        }
+
         EntityManager em = JpaUtil.getEntityManager();
         DoctorRepository doctorRepository = new DoctorRepository(em);
         Doctor doctor = doctorRepository.read(id);
@@ -36,11 +46,18 @@ public class DoctorResource extends ServerResource {
         DoctorRepresentation doctorRepresentation = new DoctorRepresentation(doctor);
         em.close();
 
-        return doctorRepresentation;
+        return new ApiResult<>(doctorRepresentation, 200, "ok");
     }
 
     @Post("json")
-    public DoctorRepresentation add(DoctorRepresentation doctorRepresentationIn){
+    public ApiResult<DoctorRepresentation> add(DoctorRepresentation doctorRepresentationIn){
+
+        //authorisation check
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        } catch (AuthorizationException e) {
+            return new ApiResult<>(null, 500, e.getMessage());
+        }
 
         if (doctorRepresentationIn ==null) return null;
         if (doctorRepresentationIn.getFullName() == null) return null;
@@ -50,12 +67,20 @@ public class DoctorResource extends ServerResource {
         DoctorRepository doctorRepository = new DoctorRepository(em);
         doctorRepository.save(doctor);
         DoctorRepresentation d = new DoctorRepresentation(doctor);
-        return d;
+        return new ApiResult<>(d, 200, "ok");
     }
 
 
     @Put("json")
-    public DoctorRepresentation putDoctor(DoctorRepresentation doctorRepresentation) {
+    public ApiResult<DoctorRepresentation> putDoctor(DoctorRepresentation doctorRepresentation) {
+
+        //authorisation check
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        } catch (AuthorizationException e) {
+            return new ApiResult<>(null, 500, e.getMessage());
+        }
+
 
         EntityManager em = JpaUtil.getEntityManager();
         DoctorRepository doctorRepository = new DoctorRepository(em);
@@ -72,7 +97,7 @@ public class DoctorResource extends ServerResource {
 
         DoctorRepresentation doctorRepresentation2 = new DoctorRepresentation(doctor);
         em.close();
-        return doctorRepresentation2;
+        return new ApiResult<>(doctorRepresentation2, 200, "ok");
 
     }
 

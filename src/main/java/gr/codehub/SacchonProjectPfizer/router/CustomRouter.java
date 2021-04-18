@@ -16,16 +16,18 @@ public class CustomRouter {
         Router router = new Router();
         router.attach("/ping", PingServerResource.class); //get
         router.attach("/register", RegisterResource.class);
-
-
+        router.attach("/patient", PatientListResource.class); //get, post
+        router.attach("/patient/{id}", PatientResource.class); //get, put, delete
+        router.attach("/consultation/{id}/patient/{patientId}", ConsultationListResource.class);
+        router.attach("/consultation/{id}/doctor/{doctorId}", ConsultationListResource.class);
         return router;
     }
 
 
     public Router protectedResources(){
         Router router = new Router();
-        router.attach("/patient", PatientListResource.class); //get, post
-        router.attach("/patient/{id}", PatientResource.class); //get, put, delete
+
+
 
         router.attach("/doctor", DoctorListResource.class);//get, post
         router.attach("/doctor/{id}", DoctorResource.class);//get, put, delete
@@ -33,6 +35,14 @@ public class CustomRouter {
 
         router.attach("/chiefDoctor", ChiefDoctorResource.class);
         router.attach("/chiefDoctor/{id}", ChiefDoctorResource.class);
+
+        router.attach("/consultation", ConsultationListResource.class);
+
+
+        router.attach("/consultations/{id}", ConsultationResource.class);
+
+
+
 
 
 

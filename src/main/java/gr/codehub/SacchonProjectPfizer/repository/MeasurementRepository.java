@@ -28,6 +28,13 @@ public class MeasurementRepository extends Repository<Measurement, Integer>{
         return Measurement.class.getName();
     }
 
+
+    public List<Measurement> getAllMeasurements() {
+        return entityManager.createQuery("SELECT  m FROM Measurement m  ",
+                Measurement.class)
+                .getResultList();
+    }
+
     public Measurement getById(int measurementId){
         return entityManager.createQuery("SELECT * FROM Doctor", Measurement.class)
                 .setParameter("measurementId", measurementId)

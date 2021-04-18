@@ -6,12 +6,13 @@ import javax.persistence.*;
 import java.util.List;
 @Data
 @Entity
-public class Patient {
+public class Patient extends Person{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String fullName;
+    @Column(unique = true)
     private String username;
     private String email;
     private String password;
