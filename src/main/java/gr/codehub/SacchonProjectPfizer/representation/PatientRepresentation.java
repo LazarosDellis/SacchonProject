@@ -18,20 +18,21 @@ public class PatientRepresentation {
     private String password;
     private String email;
     private String role;
-    private List<Measurement> measurement;
+  // private List<Measurement> measurement;
 
     private String uri;
 
     public PatientRepresentation(Patient patient) {
         if (patient != null) {
             fullName = patient.getFullName();
+            id = patient.getId();
             username = patient.getUsername();
             email = patient.getEmail();
             password = patient.getPassword();
-            measurement = patient.getMeasurements();
+          // measurement = patient.getMeasurements();
             role = patient.getRole();
 
-            uri = "http://localhost:9000/v1/patient/" + patient.getId();
+           // uri = "http://localhost:9000/v1/patient/" + patient.getId();
         }
     }
 
@@ -42,7 +43,7 @@ public class PatientRepresentation {
         patient.setUsername(username);
         patient.setEmail(email);
         patient.setPassword(password);
-        patient.setMeasurements(measurement);
+
         patient.setRole(role);
         return patient;
     }

@@ -23,7 +23,7 @@ public class DoctorRepresentation {
     public DoctorRepresentation(Doctor doctor) {
         if (doctor != null) {
             fullName = doctor.getFullName();
-
+            id = doctor.getId();
             username = doctor.getUsername();
             email = doctor.getEmail();
             password = doctor.getPassword();

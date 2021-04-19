@@ -2,6 +2,7 @@ package gr.codehub.SacchonProjectPfizer.representation;
 
 
 import gr.codehub.SacchonProjectPfizer.model.Measurement;
+import gr.codehub.SacchonProjectPfizer.model.Patient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,14 +22,15 @@ public class MeasurementRepresentation {
     private int patientId;
     private String uri;
 
-
+/// GET
     // mappers
     public MeasurementRepresentation(Measurement measurement) {
         if (measurement != null) {
             date = measurement.getDate();
+            id = measurement.getId();
             typeOfMeasurement = measurement.getTypeOfMeasurement();
             valueOfMeasurement = measurement.getValueOfMeasurement();
-            if (measurement.getPatient() != null)
+           if (measurement.getPatient() != null)
                 patientId = measurement.getPatient().getId();
             uri = "http://localhost:9000/v1/measurement/" + measurement.getId();
         }
@@ -36,11 +38,15 @@ public class MeasurementRepresentation {
 
     }
 
-
+// POST
     public Measurement createMeasurement() {
+
+
         Measurement measurement = new Measurement();
         measurement.setValueOfMeasurement(valueOfMeasurement);
         measurement.setTypeOfMeasurement(typeOfMeasurement);
+        //measurement.setPatient(patientId);
+        //measurement.getPatient().getId() ;
         measurement.setDate(date);
 
         return measurement;

@@ -36,6 +36,10 @@ public class PatientRepository  extends Repository<Patient, Integer> {
                 .getSingleResult();
     }
 
+    public List<Patient> getPatients(){
+        return entityManager.createQuery("SELECT p FROM Patient p", Patient.class)
+                .getResultList();
+    }
 
 
     public List<Measurement> getMeasurement(Date from, Date to){
@@ -54,6 +58,16 @@ public class PatientRepository  extends Repository<Patient, Integer> {
                 Consultation.class)
                 .getResultList();
     }
+
+
+// VIEW
+//their average daily blood glucose level over a user- specified
+//period their average carb intake over a user-specified period the
+//current and past consultations from doctors
+
+
+
+
 
 
 

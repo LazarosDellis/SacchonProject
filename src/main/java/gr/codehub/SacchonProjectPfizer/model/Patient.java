@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.util.List;
 @Data
 @Entity
-public class Patient extends Person{
+public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

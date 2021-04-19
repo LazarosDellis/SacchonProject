@@ -16,9 +16,11 @@ public class PatientResource extends ServerResource {
 
     private int id;
 
+
     @Override
     protected void doInit() {
         id = Integer.parseInt(getAttribute("id"));
+
     }
 
     @Get("json")
@@ -55,7 +57,10 @@ public class PatientResource extends ServerResource {
         PatientRepository productRepository = new PatientRepository(em);
         Patient patient = productRepository.read(id);
 
-        patient.setMeasurements(patientRepresentation.getMeasurement());
+        patient.setUsername(patientRepresentation.getUsername());
+        patient.setEmail(patientRepresentation.getEmail());
+        patient.setFullName(patientRepresentation.getFullName());
+        patient.setPassword(patientRepresentation.getPassword());
 
 
         productRepository.save(patient);

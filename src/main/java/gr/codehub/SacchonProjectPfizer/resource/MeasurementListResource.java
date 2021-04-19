@@ -3,6 +3,7 @@ package gr.codehub.SacchonProjectPfizer.resource;
 import gr.codehub.SacchonProjectPfizer.exception.AuthorizationException;
 import gr.codehub.SacchonProjectPfizer.jpaUtil.JpaUtil;
 
+import gr.codehub.SacchonProjectPfizer.model.Consultation;
 import gr.codehub.SacchonProjectPfizer.model.Measurement;
 
 import gr.codehub.SacchonProjectPfizer.repository.ConsultationRepository;
@@ -13,6 +14,7 @@ import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.resource.*;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -20,8 +22,20 @@ import static java.util.stream.Collectors.toList;
 public class MeasurementListResource extends ServerResource {
 
     private int id;
-
-
+    private int patientId;
+    private int doctorId;
+    private int chiefDoctorId;
+    @Override
+    protected void doInit() {
+        id = Integer.parseInt(getAttribute("id"));
+        patientId = Integer.parseInt(getAttribute("patientId"));
+//        doctorId = Integer.parseInt(getAttribute("doctorId"));
+//        chiefDoctorId = Integer.parseInt(getAttribute("chiefDoctorId"));
+//        from = (getQueryValue("from"));
+//        to = Integer.parseInt(getQueryValue("to"));
+    }
+//    Date from ;
+//    Date to ;
     @Get("json")
     public ApiResult<List<MeasurementRepresentation>> getMeasurement() {
 
@@ -36,7 +50,24 @@ public class MeasurementListResource extends ServerResource {
 
         MeasurementRepository measurementRepository = new MeasurementRepository(em);
 
-        List<Measurement> measurements = measurementRepository.getAllMeasurements();
+
+        List<Measurement> measurements = null;
+      //  if(patientId != 0) {
+            measurements = measurementRepository.getMeasurementsByPatientId(patientId);
+//
+//        }else if(doctorId !=0){
+//            measurements = measurementRepository.getMeasurementsByPatientId(doctorId);
+//
+//        }else if(chiefDoctorId != 0){
+//            measurements = measurementRepository.getMeasurementsByPatientId(chiefDoctorId);
+//
+//        }else {
+//            em.close();
+//            return new ApiResult<>(null, 400, "not ok");
+//        }
+
+
+
         em.close();
 
         List<MeasurementRepresentation> measurementRepresentationList =

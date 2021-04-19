@@ -5,6 +5,7 @@ import gr.codehub.SacchonProjectPfizer.model.Doctor;
 import gr.codehub.SacchonProjectPfizer.model.Measurement;
 
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 
 
@@ -42,11 +43,26 @@ public class MeasurementRepository extends Repository<Measurement, Integer>{
     }
 
 
+//
+//    public List<Measurement> getMeasurements(int patientId){
+//        return  entityManager.createQuery("SELECT  m FROM Measurement m inner join Patient p  where p.id = : patientId ",
+//                Measurement.class)
+//                .setParameter("patientId", patientId)
+//                .getResultList();
+//    }
 
-    public List<Measurement> getMeasurements(int patientId){
-        return  entityManager.createQuery("SELECT  m FROM Measurement m inner join Patient p  where p.id = : patientId ",
+
+
+    //1. The information submissions (personal monitor data) of a patient over a time range
+
+    //, Date from, Date to
+    // and m.date > : from and m.date < : to
+    public List<Measurement> getMeasurementsByPatientId(int patientId ) {
+        return entityManager.createQuery("SELECT m FROM Measurement m WHERE m.patient.id = : patientId ",
                 Measurement.class)
                 .setParameter("patientId", patientId)
+//                .setParameter("from", from)
+//                .setParameter("to", to)
                 .getResultList();
     }
 }

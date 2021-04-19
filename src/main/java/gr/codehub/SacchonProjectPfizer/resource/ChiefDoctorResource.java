@@ -21,25 +21,30 @@ public class ChiefDoctorResource extends ServerResource {
 
     private int id;
 
+
     @Override
     protected void doInit() {
         id = Integer.parseInt(getAttribute("id"));
+
+
     }
 
 
 
     @Get("json")
     public ApiResult<ChiefDoctorRepresentation> getChiefDoctor() {
-        //authorisation check
-        try {
-            ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
-        } catch (AuthorizationException e) {
-            return new ApiResult<>(null, 500, e.getMessage());
-        }
+//        //authorisation check
+//        try {
+//            ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+//        } catch (AuthorizationException e) {
+//            return new ApiResult<>(null, 500, e.getMessage());
+//        }
 
         EntityManager em = JpaUtil.getEntityManager();
         ChiefDoctorRepository chiefDoctorRepository = new ChiefDoctorRepository(em);
-        ChiefDoctor chiefDoctor = chiefDoctorRepository.read(id);
+         ChiefDoctor chiefDoctor = chiefDoctorRepository.read(id);
+
+
 
 
         ChiefDoctorRepresentation chiefDoctorRepresentation = new ChiefDoctorRepresentation(chiefDoctor);

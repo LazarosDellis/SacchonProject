@@ -25,7 +25,7 @@ public class ChiefDoctorRepresentation  {
         public ChiefDoctorRepresentation(ChiefDoctor chiefDoctor) {
                 if (chiefDoctor != null) {
                         fullName = chiefDoctor.getFullName();
-
+                        id = chiefDoctor.getId();
                         username = chiefDoctor.getUsername();
                         email = chiefDoctor.getEmail();
                         password = chiefDoctor.getPassword();

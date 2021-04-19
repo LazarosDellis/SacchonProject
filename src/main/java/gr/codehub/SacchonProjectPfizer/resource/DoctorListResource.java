@@ -3,14 +3,14 @@ package gr.codehub.SacchonProjectPfizer.resource;
 import gr.codehub.SacchonProjectPfizer.exception.AuthorizationException;
 import gr.codehub.SacchonProjectPfizer.jpaUtil.JpaUtil;
 import gr.codehub.SacchonProjectPfizer.model.Doctor;
-import gr.codehub.SacchonProjectPfizer.model.Patient;
+
 import gr.codehub.SacchonProjectPfizer.repository.DoctorRepository;
-import gr.codehub.SacchonProjectPfizer.repository.PatientRepository;
+
 import gr.codehub.SacchonProjectPfizer.representation.DoctorRepresentation;
-import gr.codehub.SacchonProjectPfizer.representation.PatientRepresentation;
+
 import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.resource.Get;
-import org.restlet.resource.Post;
+
 import org.restlet.resource.ServerResource;
 
 import javax.persistence.EntityManager;
@@ -22,7 +22,7 @@ public class DoctorListResource  extends ServerResource  {
 
 
     @Get("json")
-    public ApiResult<List<PatientRepresentation>> getPatient(){
+    public ApiResult<List<DoctorRepresentation>> getPatient(){
 
         //authorisation check
         try {
@@ -33,15 +33,18 @@ public class DoctorListResource  extends ServerResource  {
 
 
         EntityManager em = JpaUtil.getEntityManager();
-        PatientRepository patientRepository = new PatientRepository(em);
-        List<Patient> patients = patientRepository.findAll();
+        DoctorRepository doctorRepository = new DoctorRepository(em);
+        List<Doctor> doctors =null;
+
+        doctors = doctorRepository.getDoctors();
         em.close();
-        List<PatientRepresentation> patientRepresentationList =
-                patients.stream()
-                        .map( p-> new PatientRepresentation(p))
+
+        List<DoctorRepresentation> doctorRepresentationList =
+                doctors.stream()
+                        .map(DoctorRepresentation:: new)
                         .collect(toList());
 
-        return new ApiResult<>(patientRepresentationList, 200, "ok");
+        return new ApiResult<>(doctorRepresentationList, 200, "ok");
     }
 
 //    @Post("json") //create

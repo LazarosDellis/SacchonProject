@@ -21,12 +21,14 @@ public class ConsultationListResource extends ServerResource {
     private int id;
     private int patientId;
     private int doctorId;
+    private int chiefDoctorId;
 
     @Override
     protected void doInit() {
         id = Integer.parseInt(getAttribute("id"));
-        patientId = Integer.parseInt(getAttribute("patientId"));
-        doctorId = Integer.parseInt(getAttribute("doctorId"));
+      //  patientId = Integer.parseInt(getAttribute("patientId"));
+       doctorId = Integer.parseInt(getAttribute("doctorId"));
+      //  chiefDoctorId = Integer.parseInt(getAttribute("chiefDoctorId"));
     }
 
 
@@ -45,17 +47,11 @@ public class ConsultationListResource extends ServerResource {
         ConsultationRepository consultationRepository = new ConsultationRepository(em);
 
         List<Consultation> consultations = null;
-        if(patientId != 0) {
-            consultations = consultationRepository.getConsultationsByPatientId(patientId);
 
-        }else if(doctorId !=0){
-            consultations = consultationRepository.getConsultationsByPatientId(doctorId);
-        }else{
+        //consultations = consultationRepository.getConsultationsByPatientId(patientId);
+        consultations = consultationRepository.getConsultationsByDoctorId(doctorId);
 
-            em.close();
-            return new ApiResult<>(null, 400, "not ok");
 
-        }
 
 
         em.close();

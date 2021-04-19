@@ -22,26 +22,28 @@ import static java.util.stream.Collectors.toList;
 public class PatientListResource extends ServerResource {
 
     @Get("json")
-    public ApiResult<List<ConsultationRepresentation>> getPatient(){
+    public ApiResult<List<PatientRepresentation>> getPatient(){
 
         //authorisation check
         try {
-          ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+          ResourceUtils.checkRole(this, Shield.ROLE_USER);
         } catch (AuthorizationException e) {
             return new ApiResult<>(null, 500, e.getMessage());
         }
 
 
         EntityManager em = JpaUtil.getEntityManager();
-        ConsultationRepository consultationRepository = new ConsultationRepository(em);
-        List<Consultation> consultation = consultationRepository.findAll();
+        PatientRepository patientRepository = new PatientRepository(em);
+        List<Patient> patients = null;
+
+          patients = patientRepository.getPatients();
         em.close();
-        List<ConsultationRepresentation> consultationRepresentationList =
-                consultation.stream()
-                        .map( p-> new ConsultationRepresentation(p))
+        List<PatientRepresentation> patientRepresentationList =
+                patients.stream()
+                        .map(PatientRepresentation:: new)
                         .collect(toList());
 
-        return new ApiResult<>(consultationRepresentationList, 200, "ok");
+        return new ApiResult<>(patientRepresentationList, 200, "ok");
     }
 
     @Post("json")

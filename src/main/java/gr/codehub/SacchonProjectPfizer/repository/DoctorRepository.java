@@ -6,6 +6,7 @@ import gr.codehub.SacchonProjectPfizer.model.Measurement;
 import gr.codehub.SacchonProjectPfizer.model.Patient;
 
 import javax.persistence.EntityManager;
+import javax.print.Doc;
 import java.util.Date;
 import java.util.List;
 
@@ -74,6 +75,11 @@ public class DoctorRepository  extends Repository<Doctor, Integer>{
                 Patient.class)
                .getResultList();
 
+    }
+
+    public List<Doctor> getDoctors(){
+        return entityManager.createQuery("SELECT d FROM Doctor d", Doctor.class)
+                .getResultList();
     }
 
 

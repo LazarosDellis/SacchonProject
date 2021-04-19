@@ -54,9 +54,6 @@ public class ConsultationRepository extends Repository<Consultation, Integer> {
 //    from patient left join
 //            (select * from consultation where date> dateadd(day,-30, getdate() ) ) consultation30
 //    on consultation30.patient_id =patient.id
-//
-//
-//
 //    where consultation30.id is null
 
 
@@ -71,6 +68,18 @@ public class ConsultationRepository extends Repository<Consultation, Integer> {
                 .setParameter("patientId", patientId)
                 .getResultList();
     }
+
+
+    //2. The information submissions (consultations) of a doctor over a time range
+    public List<Consultation> getConsultationsByDoctorId(int doctorId) {
+        return entityManager.createQuery("SELECT c FROM Consultation c WHERE c.doctor.id = : doctorId",
+                Consultation.class)
+                .setParameter("doctorId", doctorId)
+                .getResultList();
+
+
+    }
+
 
 
 }
