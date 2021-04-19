@@ -18,7 +18,7 @@ public class PatientRepresentation {
     private String password;
     private String email;
     private String role;
-  // private List<Measurement> measurement;
+    //private List<Measurement> measurement;
    private int doctorId;
     private String uri;
 
@@ -29,7 +29,7 @@ public class PatientRepresentation {
             username = patient.getUsername();
             email = patient.getEmail();
             password = patient.getPassword();
-            doctorId = patient.getDoctor().getId();
+          //  doctorId = patient.getDoctor().getId();
        //     role = patient.getRole();
 
 

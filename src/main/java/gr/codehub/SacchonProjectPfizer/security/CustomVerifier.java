@@ -34,23 +34,5 @@ public class CustomVerifier extends SecretVerifier {
     }
 
 
-//    public int verify(String username, char[] password) {
-//        //check db for user
-//        EntityManager em = JpaUtil.getEntityManager();
-//        DoctorRepository doctorRepository =new DoctorRepository(em);
-//
-//        Doctor doctor = doctorRepository.getByUsername(username);
-//        if (doctor==null)
-//            return SecretVerifier.RESULT_INVALID;
-//        String passwordInDb = doctor.getPassword();
-//        if (compare(passwordInDb.toCharArray(), password) ) {
-//            Request request = Request.getCurrent();
-//            request.getClientInfo().getRoles().add
-//                    (new Role(   doctor.getRole()  ));
-//            return SecretVerifier.RESULT_VALID;
-//        }
-//        return SecretVerifier.RESULT_INVALID;
-//    }
-
 
 }

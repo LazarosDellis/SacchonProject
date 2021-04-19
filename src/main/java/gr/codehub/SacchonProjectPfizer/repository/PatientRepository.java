@@ -53,12 +53,7 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 //
 //    }
 
-    public List<Consultation> getConsultations(){
-        return  entityManager.createQuery("SELECT  c FROM Consultation c ",
-                Consultation.class)
-                .getResultList();
-    }
-//
+
 //    public List<Measurement> getAvgOfMeasurements(){
 //        return entityManager.createNativeQuery("SELECT AVG(measurement.valueOfMeasurement) from Measurement M left join( select * from measurement GROUP BY measurement.typeOfMeasurement = 'carbs') average  "+
 //                "")

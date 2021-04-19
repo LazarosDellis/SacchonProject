@@ -34,6 +34,7 @@ public class PatientListResource extends ServerResource {
 
         EntityManager em = JpaUtil.getEntityManager();
         PatientRepository patientRepository = new PatientRepository(em);
+
         List<Patient> patients = null;
 
           patients = patientRepository.getPatients();

@@ -24,21 +24,26 @@ public class CustomRouter {
         router.attach("/doctor", DoctorListResource.class);//get, post
         router.attach("/doctor/{id}", DoctorResource.class); // get one / post / put
 
-       // router.attach("/chiefDoctor", ChiefDoctorResource.class);
-       // router.attach("/chiefDoctor/{id}", ChiefDoctorResource.class);
+        router.attach("/measurement/{id}", MeasurementResource.class);
+        router.attach("/measurement/{id}/patient/{patientId}", MeasurementListResource.class); // KANEI TO IDIO ME TO PROHGOUMENO
 
         router.attach("/consultation/{id}/patient/{patientId}", ConsultationResource.class);
         router.attach("/consultation/{id}/doctor/{doctorId}", ConsultationResource.class);
-
         router.attach("/doctor/{id}/consultation/{consultationId}", ConsultationResource.class);
+        router.attach("/patient/{id}/consultation/{consultationId}", ConsultationResource.class);
+
+
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        router.attach("/measurement/patient/{id}", MeasurementListResource.class);
+        router.attach("/patient/{id}/consultation", ConsultationsOfAPatientResource.class);//
 
 
 
-        router.attach("/measurement/{id}", MeasurementResource.class);
-        router.attach("/measurement/{id}/patient/{patientId}", MeasurementResource.class);
-        router.attach("/measurement/{id}/patient/{patientId}", MeasurementListResource.class);
 
-       // router.attach("/")
+
+      //  router.attach("/measurement/{id}/patient/{patientId}", MeasurementListResource.class);
+        router.attach("/measurement/{id}/doctor/{doctorId}", MeasurementListDoctorResource.class );
 
 
 
@@ -57,10 +62,10 @@ public class CustomRouter {
         router.attach("/chiefDoctor", ChiefDoctorResource.class);
         router.attach("/chiefDoctor/{id}", ChiefDoctorResource.class);
 
-        router.attach("/consultation", ConsultationListResource.class);
-
-
-        router.attach("/consultations/{id}", ConsultationResource.class);
+//        router.attach("/consultation", ConsultationListResource.class);
+//
+//
+//        router.attach("/consultations/{id}", ConsultationResource.class);
 
 
 

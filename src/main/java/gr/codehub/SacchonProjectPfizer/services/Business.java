@@ -39,7 +39,7 @@ public class Business {
         int consultationId = consultation.getId();
       // List<Consultation> consultations = consultationRepository.getConsultations(patient.getId());
 
-        List<Consultation> consultations = patientRepository.getConsultations();
+       // List<Consultation> consultations = patientRepository.getConsultations();
 
     }
 

@@ -3,6 +3,8 @@ package gr.codehub.SacchonProjectPfizer.repository;
 import gr.codehub.SacchonProjectPfizer.model.Consultation;
 import gr.codehub.SacchonProjectPfizer.model.Doctor;
 import gr.codehub.SacchonProjectPfizer.model.Measurement;
+import gr.codehub.SacchonProjectPfizer.model.Patient;
+import gr.codehub.SacchonProjectPfizer.resource.MeasurementListResource;
 
 import javax.persistence.EntityManager;
 import java.util.Date;
@@ -30,20 +32,31 @@ public class MeasurementRepository extends Repository<Measurement, Integer>{
     }
 
 
-    public List<Measurement> getAllMeasurements() {
-        return entityManager.createQuery("SELECT  m FROM Measurement m  ",
-                Measurement.class)
+    public List<Measurement> getAllMeasurementsOfaPatient(int patientId) {
+        return entityManager.createQuery("SELECT m FROM Measurement m where m.patient.id = :patientId ", Measurement.class)
+                .setParameter("patientId", patientId)
                 .getResultList();
     }
 
-    public Measurement getById(int measurementId){
-        return entityManager.createQuery("SELECT * FROM Doctor", Measurement.class)
-                .setParameter("measurementId", measurementId)
-                .getSingleResult();
+
+
+    public List<Measurement> getMeasurementsByDoctorId(int doctorId){
+        return entityManager.createQuery("SELECT m FROM Measurement m INNER JOIN Patient p  WHERE m.patient.id = :patientId and p.doctorId = :doctorId", Measurement.class)
+                .setParameter("doctorId", doctorId)
+                .getResultList();
+
     }
 
 
-//
+//    SELECT *
+//    from Measurement m
+//    inner join Patient p  on m.patient_id = p.id
+//    WHERE p.doctor_id = 1
+
+
+
+
+
 //    public List<Measurement> getMeasurements(int patientId){
 //        return  entityManager.createQuery("SELECT  m FROM Measurement m inner join Patient p  where p.id = : patientId ",
 //                Measurement.class)
@@ -58,7 +71,7 @@ public class MeasurementRepository extends Repository<Measurement, Integer>{
     //, Date from, Date to
     // and m.date > : from and m.date < : to
     public List<Measurement> getMeasurementsByPatientId(int patientId ) {
-        return entityManager.createQuery("SELECT m FROM Measurement m WHERE m.patient.id = : patientId ",
+        return entityManager.createQuery("SELECT m FROM Measurement m WHERE m.patient.id = :patientId ",
                 Measurement.class)
                 .setParameter("patientId", patientId)
 //                .setParameter("from", from)

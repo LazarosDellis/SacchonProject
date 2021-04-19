@@ -22,7 +22,7 @@ public class DoctorListResource  extends ServerResource  {
 
 
     @Get("json")
-    public ApiResult<List<DoctorRepresentation>> getPatient(){
+    public ApiResult<List<DoctorRepresentation>> getDoctor(){
 
         //authorisation check
         try {

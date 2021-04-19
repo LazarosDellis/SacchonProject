@@ -23,8 +23,8 @@ public class MeasurementListResource extends ServerResource {
 
     private int id;
     private int patientId;
-    private int doctorId;
-    private int chiefDoctorId;
+
+
     @Override
     protected void doInit() {
 
@@ -36,33 +36,23 @@ public class MeasurementListResource extends ServerResource {
     public ApiResult<List<MeasurementRepresentation>> getMeasurement() {
 
         //authorisation check
-        try {
-            ResourceUtils.checkRole(this, Shield.ROLE_USER);
-        } catch (AuthorizationException e) {
-            return new ApiResult<>(null, 500, e.getMessage());
-        }
+//        try {
+//            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+//        } catch (AuthorizationException e) {
+//            return new ApiResult<>(null, 500, e.getMessage());
+//        }
 
         EntityManager em = JpaUtil.getEntityManager();
 
         MeasurementRepository measurementRepository = new MeasurementRepository(em);
 
 
-        List<Measurement> measurements = null;
-      //  if(patientId != 0) {
-            measurements = measurementRepository.getMeasurementsByPatientId(patientId);
-//
-//        }else if(doctorId !=0){
-//            measurements = measurementRepository.getMeasurementsByPatientId(doctorId);
-//
-//        }else if(chiefDoctorId != 0){
-//            measurements = measurementRepository.getMeasurementsByPatientId(chiefDoctorId);
-//
-//        }else {
-//            em.close();
-//            return new ApiResult<>(null, 400, "not ok");
-//        }
 
+          //  measurements = measurementRepository.getMeasurementsByPatientId(patientId);
 
+        List<Measurement>   measurements = null;
+
+           measurements     = measurementRepository.getAllMeasurementsOfaPatient(patientId);
 
         em.close();
 

@@ -20,6 +20,7 @@ public class MeasurementRepresentation {
     private double valueOfMeasurement;
     private String typeOfMeasurement;
     private int patientId;
+
     private String uri;
 
 /// GET
@@ -32,7 +33,8 @@ public class MeasurementRepresentation {
             valueOfMeasurement = measurement.getValueOfMeasurement();
            if (measurement.getPatient() != null)
                 patientId = measurement.getPatient().getId();
-            uri = "http://localhost:9000/v1/measurement/" + measurement.getId();
+            uri = "http://localhost:9000/v1/measurement/" ;
+            //+ measurement.getId()
         }
 
 

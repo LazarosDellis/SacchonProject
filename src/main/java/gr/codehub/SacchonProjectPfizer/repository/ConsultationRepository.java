@@ -61,18 +61,24 @@ public class ConsultationRepository extends Repository<Consultation, Integer> {
 //
 //            ("SELECT * FROM customers, "jpqlexample.entities.Customer.class)
 //            .getResultList();
-
-    public List<Consultation> getConsultationsByPatientId(int patientId) {
-        return entityManager.createQuery("SELECT  c FROM Consultation c WHERE c.patient.id = : patientId  ",
+// p.id = :patientId
+    //inner join Patient p
+    public List<Consultation> getConsultationsOfAPatient(int patientId) {
+        try{
+        return entityManager.createQuery("SELECT c FROM Consultation c ",
                 Consultation.class)
-                .setParameter("patientId", patientId)
+              //  .setParameter("patientId", patientId)
                 .getResultList();
+        }catch (Exception e){
+            return null;
+        }
+
     }
 
 
     //2. The information submissions (consultations) of a doctor over a time range
     public List<Consultation> getConsultationsByDoctorId(int doctorId ) {
-        return entityManager.createQuery("SELECT c FROM Consultation c WHERE c.doctor.id = : doctorId",
+        return entityManager.createQuery("SELECT c FROM Consultation c WHERE c.doctor.id = :doctorId",
                 Consultation.class)
                 .setParameter("doctorId", doctorId)
                 .getResultList();

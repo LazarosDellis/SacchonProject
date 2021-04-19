@@ -27,11 +27,12 @@ public class ConsultationRepresentation {
             id = consultation.getId();
             date = consultation.getDate();
             consult = consultation.getConsult();
-            if (consultation.getDoctor() != null)
+//            if (consultation.getDoctor() != null)
                 doctorId = consultation.getDoctor().getId();
-            if (consultation.getPatient() != null)
+//            if (consultation.getPatient() != null)
                 patientId = consultation.getPatient().getId();
-            uri = "http://localhost:9000/v1/consultation/" + consultation.getId();
+            uri = "http://localhost:9000/v1/consultation/" ;
+            //+ consultation.getId()
         }
     }
 
