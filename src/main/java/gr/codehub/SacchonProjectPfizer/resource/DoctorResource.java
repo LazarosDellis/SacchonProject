@@ -61,9 +61,11 @@ public class DoctorResource extends ServerResource {
 
         if (doctorRepresentationIn ==null) return null;
         if (doctorRepresentationIn.getFullName() == null) return null;
+        EntityManager em = JpaUtil.getEntityManager();
+
 
         Doctor doctor = doctorRepresentationIn.createDoctor();
-        EntityManager em = JpaUtil.getEntityManager();
+
         DoctorRepository doctorRepository = new DoctorRepository(em);
         doctorRepository.save(doctor);
         DoctorRepresentation d = new DoctorRepresentation(doctor);

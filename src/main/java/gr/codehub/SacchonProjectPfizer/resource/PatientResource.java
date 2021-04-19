@@ -42,8 +42,15 @@ public class PatientResource extends ServerResource {
         if (patientRepresentationIn ==null) return null;
         if (patientRepresentationIn.getFullName() == null) return null;
 
-        Patient patient = patientRepresentationIn.createPatient();
         EntityManager em = JpaUtil.getEntityManager();
+
+        int doctorId = patientRepresentationIn.getDoctorId();
+        Doctor doctor = em.find(Doctor.class, doctorId);
+
+        Patient patient = patientRepresentationIn.createPatient();
+        patient.setDoctor(doctor);
+
+
         PatientRepository patientRepository = new PatientRepository(em);
         patientRepository.save(patient);
         PatientRepresentation p = new PatientRepresentation(patient);
@@ -54,13 +61,19 @@ public class PatientResource extends ServerResource {
     public PatientRepresentation putPatient(PatientRepresentation patientRepresentation) {
 
         EntityManager em = JpaUtil.getEntityManager();
+
+        int doctorId = patientRepresentation.getDoctorId();
+        Doctor doctor = em.find(Doctor.class, doctorId);
+
         PatientRepository productRepository = new PatientRepository(em);
         Patient patient = productRepository.read(id);
+
 
         patient.setUsername(patientRepresentation.getUsername());
         patient.setEmail(patientRepresentation.getEmail());
         patient.setFullName(patientRepresentation.getFullName());
         patient.setPassword(patientRepresentation.getPassword());
+        patient.setDoctor(doctor);
 
 
         productRepository.save(patient);

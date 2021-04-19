@@ -3,7 +3,7 @@ package gr.codehub.SacchonProjectPfizer.repository;
 import gr.codehub.SacchonProjectPfizer.model.*;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+
 import java.util.Date;
 import java.util.List;
 
@@ -53,9 +53,9 @@ public class ChiefDoctorRepository extends Repository<ChiefDoctor, Integer> {
 //3. The list of the patients who are waiting for a consultation and the time elapsed since they needed to have one
 
     public List<Patient> getPatientsWithNoConsultation(Date date) {
-        return entityManager.createNativeQuery(" select patient.* from patient left join (select * from consultation where date> dateadd(day,-30, getdate() ) ) consultation30\n" +
-                "    on consultation30.patient_id =patient.id\n" +
-                "    where consultation30.id is null")
+        return (List<Patient>) entityManager.createNativeQuery(" select patient.* from patient left join (select * from consultation where date> dateadd(day,-30, getdate() ) ) consultation30" +
+                "    on consultation30.patient_id =patient.id" +
+                "    where consultation30.id is null", Patient.class)
                 .setParameter("date", date)
                 .getResultList();
 

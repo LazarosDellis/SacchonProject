@@ -40,7 +40,7 @@ public class ConsultationRepresentation {
         consultation.setId(id);
         consultation.setConsult(consult);
         consultation.setDate(date);
-      //  consultation.setPatient(getPatientId);
+
         return consultation;
     }
 

@@ -27,12 +27,8 @@ public class MeasurementListResource extends ServerResource {
     private int chiefDoctorId;
     @Override
     protected void doInit() {
-        id = Integer.parseInt(getAttribute("id"));
-        patientId = Integer.parseInt(getAttribute("patientId"));
-//        doctorId = Integer.parseInt(getAttribute("doctorId"));
-//        chiefDoctorId = Integer.parseInt(getAttribute("chiefDoctorId"));
-//        from = (getQueryValue("from"));
-//        to = Integer.parseInt(getQueryValue("to"));
+
+
     }
 //    Date from ;
 //    Date to ;

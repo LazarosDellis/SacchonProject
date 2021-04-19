@@ -28,6 +28,7 @@ public class DoctorRepresentation {
             email = doctor.getEmail();
             password = doctor.getPassword();
             role = doctor.getRole();
+
             uri =  "http://localhost:9000/v1/doctor/" + doctor.getId();
         }
 

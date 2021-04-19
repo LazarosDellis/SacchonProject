@@ -14,7 +14,7 @@ public class Measurement {
     private int id;
     private Date date;
     private String typeOfMeasurement;
-   // private String unitsOfMeasurement;
+
     private double valueOfMeasurement;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

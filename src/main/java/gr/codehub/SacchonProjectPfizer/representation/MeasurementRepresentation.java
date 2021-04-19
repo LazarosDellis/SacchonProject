@@ -45,8 +45,7 @@ public class MeasurementRepresentation {
         Measurement measurement = new Measurement();
         measurement.setValueOfMeasurement(valueOfMeasurement);
         measurement.setTypeOfMeasurement(typeOfMeasurement);
-        //measurement.setPatient(patientId);
-        //measurement.getPatient().getId() ;
+       //meas
         measurement.setDate(date);
 
         return measurement;

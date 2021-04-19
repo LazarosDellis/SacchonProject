@@ -27,14 +27,18 @@ public class CustomRouter {
        // router.attach("/chiefDoctor", ChiefDoctorResource.class);
        // router.attach("/chiefDoctor/{id}", ChiefDoctorResource.class);
 
+        router.attach("/consultation/{id}/patient/{patientId}", ConsultationResource.class);
+        router.attach("/consultation/{id}/doctor/{doctorId}", ConsultationResource.class);
 
         router.attach("/doctor/{id}/consultation/{consultationId}", ConsultationResource.class);
-        router.attach("/consultation/{id}/patient/{patientId}", ConsultationListResource.class);
-        router.attach("/consultation/{id}/doctor/{doctorId}", ConsultationListResource.class);
+
+
 
         router.attach("/measurement/{id}", MeasurementResource.class);
+        router.attach("/measurement/{id}/patient/{patientId}", MeasurementResource.class);
         router.attach("/measurement/{id}/patient/{patientId}", MeasurementListResource.class);
 
+       // router.attach("/")
 
 
 

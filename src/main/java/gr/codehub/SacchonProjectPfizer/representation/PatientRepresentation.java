@@ -19,7 +19,7 @@ public class PatientRepresentation {
     private String email;
     private String role;
   // private List<Measurement> measurement;
-
+   private int doctorId;
     private String uri;
 
     public PatientRepresentation(Patient patient) {
@@ -29,10 +29,10 @@ public class PatientRepresentation {
             username = patient.getUsername();
             email = patient.getEmail();
             password = patient.getPassword();
-          // measurement = patient.getMeasurements();
-            role = patient.getRole();
+            doctorId = patient.getDoctor().getId();
+       //     role = patient.getRole();
 
-           // uri = "http://localhost:9000/v1/patient/" + patient.getId();
+
         }
     }
 

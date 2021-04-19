@@ -32,6 +32,9 @@ public class ConsultationListResource extends ServerResource {
     }
 
 
+
+
+
     @Get("json")
     public ApiResult<List<ConsultationRepresentation>> getConsultation() {
 
@@ -41,6 +44,14 @@ public class ConsultationListResource extends ServerResource {
         } catch (AuthorizationException e) {
             return new ApiResult<>(null, 500, e.getMessage());
         }
+
+//        try {
+//            fromPrice = Integer.parseInt(getQueryValue("from"));
+//            toPrice = Integer.parseInt(getQueryValue("to"));
+//        } catch (Exception e) {
+//
+//        }
+
 
         EntityManager em = JpaUtil.getEntityManager();
 

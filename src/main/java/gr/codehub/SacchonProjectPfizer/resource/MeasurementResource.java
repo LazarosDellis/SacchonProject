@@ -4,6 +4,7 @@ import gr.codehub.SacchonProjectPfizer.exception.AuthorizationException;
 import gr.codehub.SacchonProjectPfizer.jpaUtil.JpaUtil;
 
 import gr.codehub.SacchonProjectPfizer.model.Measurement;
+import gr.codehub.SacchonProjectPfizer.model.Patient;
 import gr.codehub.SacchonProjectPfizer.repository.MeasurementRepository;
 import gr.codehub.SacchonProjectPfizer.representation.MeasurementRepresentation;
 import gr.codehub.SacchonProjectPfizer.security.Shield;
@@ -42,7 +43,7 @@ public class MeasurementResource extends ServerResource {
     }
 
     @Post("json")
-    public ApiResult<MeasurementRepresentation> add(MeasurementRepresentation measurementRepresentationIn){
+    public ApiResult<MeasurementRepresentation> add(MeasurementRepresentation measurementRepresentationIn) {
 
         //authorisation check
         try {
@@ -51,11 +52,16 @@ public class MeasurementResource extends ServerResource {
             return new ApiResult<>(null, 500, e.getMessage());
         }
 
-        if (measurementRepresentationIn ==null) return null;
+        if (measurementRepresentationIn == null) return null;
         if (measurementRepresentationIn.createMeasurement() == null) return null;
 
-        Measurement measurement = measurementRepresentationIn.createMeasurement();
         EntityManager em = JpaUtil.getEntityManager();
+        int patientId = measurementRepresentationIn.getPatientId();
+        Patient patient = em.find(Patient.class, patientId);
+
+        Measurement measurement = measurementRepresentationIn.createMeasurement();
+        measurement.setPatient(patient);
+
         MeasurementRepository measurementRepository = new MeasurementRepository(em);
         measurementRepository.save(measurement);
         MeasurementRepresentation p = new MeasurementRepresentation(measurement);
@@ -74,12 +80,18 @@ public class MeasurementResource extends ServerResource {
         }
 
         EntityManager em = JpaUtil.getEntityManager();
+
+
+        int patientId = measurementRepresentation.getPatientId();
+        Patient patient = em.find(Patient.class, patientId);
+
         MeasurementRepository measurementRepository = new MeasurementRepository(em);
         Measurement measurement = measurementRepository.read(id);
 
         measurement.setValueOfMeasurement(measurementRepresentation.createMeasurement().getValueOfMeasurement());
         measurement.setDate(measurementRepresentation.createMeasurement().getDate());
         measurement.setTypeOfMeasurement(measurementRepresentation.createMeasurement().getTypeOfMeasurement());
+        measurement.setPatient(patient);
         measurementRepository.save(measurement);
 
         MeasurementRepresentation measurementRepresentation2 = new MeasurementRepresentation(measurement);
@@ -87,9 +99,6 @@ public class MeasurementResource extends ServerResource {
         return new ApiResult<>(measurementRepresentation2, 200, "ok");
 
     }
-
-
-
 
 
     @Delete("txt")

@@ -71,7 +71,7 @@ public class ConsultationRepository extends Repository<Consultation, Integer> {
 
 
     //2. The information submissions (consultations) of a doctor over a time range
-    public List<Consultation> getConsultationsByDoctorId(int doctorId) {
+    public List<Consultation> getConsultationsByDoctorId(int doctorId ) {
         return entityManager.createQuery("SELECT c FROM Consultation c WHERE c.doctor.id = : doctorId",
                 Consultation.class)
                 .setParameter("doctorId", doctorId)
