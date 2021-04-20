@@ -1,5 +1,6 @@
 package gr.codehub.SacchonProjectPfizer.repository;
 
+import com.sun.jdi.event.ExceptionEvent;
 import gr.codehub.SacchonProjectPfizer.model.Consultation;
 import gr.codehub.SacchonProjectPfizer.model.Doctor;
 import gr.codehub.SacchonProjectPfizer.model.Patient;
@@ -69,9 +70,9 @@ public class ConsultationRepository extends Repository<Consultation, Integer> {
     //inner join Patient p
     public List<Consultation> getConsultationsOfAPatient(int patientId) {
         try{
-        return entityManager.createQuery("SELECT c FROM Consultation c ",
+        return entityManager.createQuery("SELECT c FROM Consultation c where c.patient.id = :patientId ",
                 Consultation.class)
-              //  .setParameter("patientId", patientId)
+                 .setParameter("patientId", patientId)
                 .getResultList();
         }catch (Exception e){
             return null;
@@ -82,16 +83,19 @@ public class ConsultationRepository extends Repository<Consultation, Integer> {
 
     //2. The information submissions (consultations) of a doctor over a time range
     public List<Consultation> getConsultationsByDoctorId(int doctorId, Date from, Date to ) {
-        return entityManager.createNativeQuery("Select * from Consultation" +
-                "where Consultation.date > :from" +
-                "AND Consultation.date < :to" +
-                "AND Consultation.doctor_id = doctorId",
-                Consultation.class)
-                .setParameter("doctorId", doctorId)
-                .setParameter("from", from)
-                .setParameter("to", to)
-                .getResultList();
-
+       try {
+           return entityManager.createNativeQuery(" Select * from Consultation" +
+                           " where Consultation.doctor_id = :doctorId" +
+                           " AND Consultation.date > :from" +
+                           " AND Consultation.date < :to",
+                   Consultation.class)
+                   .setParameter("doctorId", doctorId)
+                   .setParameter("from", from)
+                   .setParameter("to", to)
+                   .getResultList();
+       }catch (Exception e){
+           return null;
+       }
 
     }
 

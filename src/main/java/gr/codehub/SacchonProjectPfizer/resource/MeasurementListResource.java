@@ -27,11 +27,11 @@ public class MeasurementListResource extends ServerResource {
 
     @Override
     protected void doInit() {
-
-
+        patientId = Integer.parseInt(getAttribute("patientId"));
+        id = Integer.parseInt(getAttribute("id"));
     }
-//    Date from ;
-//    Date to ;
+
+
     @Get("json")
     public ApiResult<List<MeasurementRepresentation>> getMeasurement() {
 
@@ -47,12 +47,9 @@ public class MeasurementListResource extends ServerResource {
         MeasurementRepository measurementRepository = new MeasurementRepository(em);
 
 
+        List<Measurement> measurements = null;
 
-          //  measurements = measurementRepository.getMeasurementsByPatientId(patientId);
-
-        List<Measurement>   measurements = null;
-
-           measurements     = measurementRepository.getAllMeasurementsOfaPatient(patientId);
+        measurements = measurementRepository.getAllMeasurementsOfaPatient(patientId);
 
         em.close();
 
@@ -66,7 +63,7 @@ public class MeasurementListResource extends ServerResource {
 
 
     @Post("json")
-    public ApiResult<MeasurementRepresentation> addMeasurement(MeasurementRepresentation measurementRepresentation){
+    public ApiResult<MeasurementRepresentation> addMeasurement(MeasurementRepresentation measurementRepresentation) {
 
 
         //authorisation check
@@ -76,7 +73,7 @@ public class MeasurementListResource extends ServerResource {
             return new ApiResult<>(null, 500, e.getMessage());
         }
 
-        if (measurementRepresentation ==null) return null;
+        if (measurementRepresentation == null) return null;
         if (measurementRepresentation.getTypeOfMeasurement() == null) return null;
 
         Measurement measurement = measurementRepresentation.createMeasurement();

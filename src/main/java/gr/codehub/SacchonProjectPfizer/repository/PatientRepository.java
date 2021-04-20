@@ -28,7 +28,7 @@ public class PatientRepository  extends Repository<Patient, Integer> {
         return Patient.class.getName();
     }
 
-
+    //BIRD
     public Patient getByUsername(String username ){
         return entityManager.createQuery("SELECT p  FROM Patient p " +
                 "WHERE p.username = :username",Patient.class)
@@ -42,28 +42,11 @@ public class PatientRepository  extends Repository<Patient, Integer> {
     }
 
 
-//    public List<Measurement> getMeasurement(Date from, Date to){
-//        return entityManager.createQuery("SELECT m  FROM Measurement m inner join Patient p WHERE  m.date >= : from and m.date <= : to ",
-//       // return entityManager.createQuery("SELECT m  FROM Measurement m WHERE  m.date :from and :to ",
-//
-//                Measurement.class)
-//                .setParameter("from", from)
-//                .setParameter("to", to)
-//                .getResultList();
-//
-//    }
-
-
-//    public List<Measurement> getAvgOfMeasurements(){
-//        return entityManager.createNativeQuery("SELECT AVG(measurement.valueOfMeasurement) from Measurement M left join( select * from measurement GROUP BY measurement.typeOfMeasurement = 'carbs') average  "+
-//                "")
-//    }
-    // return entityManager.createQuery("SELECT m  FROM Measurement m WHERE  m.date :from and :to ",
 //2.
-    public List<Measurement> getAvgOfMeasurements(int patientId, Date from1, Date to){
-        return entityManager.createQuery("SELECT AVG(m.valueOfMeasurement)  FROM Measurement m WHERE m.patient.id = : patientId and  m.date >= :from1 and m.date <= :to GROUP BY m.typeOfMeasurement ",
-
-                Measurement.class)
+    public List<Double> getAvgOfMeasurements(int patientId, Date from1, Date to){
+        return entityManager.createQuery("SELECT AVG(m.valueOfMeasurement)  FROM Measurement m WHERE m.patient.id = : patientId and  m.date >= :from1 and m.date <= :to GROUP BY m.typeOfMeasurement " +
+                        " ORDER BY m.typeOfMeasurement" ,
+                Double.class)
                 .setParameter("patientId", patientId)
                 .setParameter("from1", from1)
                 .setParameter("to", to)
@@ -71,13 +54,10 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 
     }
 
-// VIEW
-//their average daily blood glucose level over a user- specified
-//period their average carb intake over a user-specified period the
-//current and past consultations from doctors
 
 
-    //   4. The list of the patients with no activity over a time range
+
+    // CHIEFDOCTOR  4. The list of the patients with no activity over a time range
     public List<Patient> getActivityMeasurements(Date from, Date to) {
         return entityManager.createNativeQuery("SELECT * FROM Patient WHERE Patient.id NOT IN(SELECT Patient.id FROM Patient " +
                         "Left JOIN Measurement " +
@@ -89,6 +69,19 @@ public class PatientRepository  extends Repository<Patient, Integer> {
                 .setParameter("to", to)
                 .getResultList();
     }
+
+
+    //DOCTOR 4.
+
+    public List<Patient> getPatientsWithNoDoctor() {
+        return entityManager.createNativeQuery("select patient.* from patient left join (select * from consultation where date> dateadd(day,-30, getdate() ) ) consultation30" +
+                " on consultation30.patient_id =patient.id where consultation30.id is null")
+                .getResultList();
+
+
+    }
+
+
 
 
 

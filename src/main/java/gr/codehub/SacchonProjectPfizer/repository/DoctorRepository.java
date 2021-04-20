@@ -45,30 +45,32 @@ public class DoctorRepository  extends Repository<Doctor, Integer>{
                 .setParameter("doctorId", doctorId)
                 .getResultList();
     }
-
-    public List<Measurement> getPatientData(String fullName) {
-        return entityManager.createQuery("SELECT m FROM Measurement m inner join Patient p  where p.id = :patientId ",
+//DOCTOR 2.
+    public List<Measurement> getPatientData(int patientId) {
+        return entityManager.createQuery(" SELECT m, c FROM Measurement m inner join Patient p Consultation c  where m.id = :patientId and c. ",
                 Measurement.class)
-                .setParameter("fullName", fullName)
+                .setParameter("patientId", patientId)
                 .getResultList();
 
     }
-
-    public List<Consultation> getConsultations(String fullName) {
+//DOCTOR 2.
+    public List<Consultation> getConsultations(int patientId) {
        return entityManager.createQuery("SELECT c FROM Consultation c inner join Patient p where p.id = :patientId ",
                 Consultation.class)
-                .setParameter("fullName", fullName)
+                .setParameter("patientId", patientId)
                 .getResultList();
 
     }
 
 
-    public List<Patient> getPatientsWithNoDoctor(){
-        return entityManager.createQuery("SELECT p FROM Patient p inner join Doctor d where d.id IS NUll ",
-                Patient.class)
-                .getResultList();
 
-    }
+
+//    public List<Patient> getPatientsWithNoDoctor(){
+//        return entityManager.createQuery("SELECT p FROM Patient p inner join Doctor d where d.id IS NUll ",
+//                Patient.class)
+//                .getResultList();
+//
+//    }
 
     public List<Patient> getMinePatientsWithNoConsult(){
         return entityManager.createQuery("SELECT p FROM Patient p inner join Consultation c where current(date) - max(consultation.date) ",

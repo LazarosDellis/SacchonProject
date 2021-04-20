@@ -3,11 +3,11 @@ package gr.codehub.SacchonProjectPfizer.resource;
 import gr.codehub.SacchonProjectPfizer.exception.AuthorizationException;
 import gr.codehub.SacchonProjectPfizer.jpaUtil.JpaUtil;
 import gr.codehub.SacchonProjectPfizer.model.Consultation;
-import gr.codehub.SacchonProjectPfizer.model.Patient;
+
 import gr.codehub.SacchonProjectPfizer.repository.ConsultationRepository;
-import gr.codehub.SacchonProjectPfizer.repository.PatientRepository;
+
 import gr.codehub.SacchonProjectPfizer.representation.ConsultationRepresentation;
-import gr.codehub.SacchonProjectPfizer.representation.MeasurementRepresentation;
+
 import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.resource.*;
 
@@ -22,21 +22,13 @@ import static java.util.stream.Collectors.toList;
 public class ConsultationListResource extends ServerResource {
 
     private int id;
-    private int patientId;
-    private int doctorId;
-    private int chiefDoctorId;
+
 
     @Override
     protected void doInit() {
         id = Integer.parseInt(getAttribute("id"));
-      //  patientId = Integer.parseInt(getAttribute("patientId"));
 
-      //  chiefDoctorId = Integer.parseInt(getAttribute("chiefDoctorId"));
     }
-
-
-
-
 
     @Get("json")
     public ApiResult<List<ConsultationRepresentation>> getConsultation() {
@@ -45,13 +37,13 @@ public class ConsultationListResource extends ServerResource {
         String dateT = getAttribute("to");
         Date dateFrom = null;
         Date dateTo = null;
-        Integer doctorId = null;
+        Integer doctorId = id;
 
         try {
             dateFrom = new SimpleDateFormat("yyyy-MM-dd").parse(dateF);
             dateTo = new SimpleDateFormat("yyyy-MM-dd").parse(dateT);
 
-           // docId = new  Integer.parseInt(getAttribute("dId"));
+
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -65,9 +57,6 @@ public class ConsultationListResource extends ServerResource {
 
         //consultations = consultationRepository.getConsultationsByPatientId(patientId);
         consultations = consultationRepository.getConsultationsByDoctorId(doctorId, dateFrom, dateTo);
-
-
-
 
         em.close();
 

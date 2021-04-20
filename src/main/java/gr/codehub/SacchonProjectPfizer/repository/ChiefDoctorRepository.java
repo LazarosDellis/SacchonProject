@@ -32,36 +32,13 @@ public class ChiefDoctorRepository extends Repository<ChiefDoctor, Integer> {
                 .setParameter("chiefDoctorId", chiefDoctorId)
                 .getSingleResult();
     }
-    //1. The information submissions (personal monitor data) of a patient over a time range
-    //, Date from, Date to
-    //and m.date > : from and m.date < : to
-    public List<Measurement> getMeasurements(int patientId) {
-        return entityManager.createQuery("SELECT m FROM Measurement m inner join Patient p  where p.id = : patientId   ",
-                Measurement.class)
-                .setParameter("patientId", patientId)
-//                .setParameter("from", from)
-//                .setParameter("to", to)
-                .getResultList();
-    }
-//
-//   // 2. The information submissions (consultations) of a doctor over a time range
-//   public List<Consultation> getConsultationsOverATimeRange(int patientId, Date from1 , Date to1) {
-//       return entityManager.createQuery("SELECT c FROM Consultation c inner join Doctor d  where  >= :from1 and  <= :to1",
-//               Consultation.class)
-//               .setParameter("patientId", patientId)
-//                .setParameter("from", from1)
-//                .setParameter("to", to1)
-//               .getResultList();
-//   }
 
 
 
 
 
 
-//    public List<Patient> patients = (List<Patient>)entityManager.createNativeQuery("select patient.* from patient left join (select * from consultation where date> dateadd(day,-30, getdate() ) ) consultation30" +
-//            " on consultation30.patient_id =patient.id where consultation30.id is null")
-//            .getResultList();
+
 
 //3. The list of the patients who are waiting for a consultation and the time elapsed since they needed to have one
 

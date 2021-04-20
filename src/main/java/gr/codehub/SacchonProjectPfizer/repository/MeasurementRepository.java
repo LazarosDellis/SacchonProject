@@ -48,34 +48,20 @@ public class MeasurementRepository extends Repository<Measurement, Integer>{
     }
 
 
-//    SELECT *
-//    from Measurement m
-//    inner join Patient p  on m.patient_id = p.id
-//    WHERE p.doctor_id = 1
+    //1.CHIEFDOCTOR The information submissions (personal monitor data) of a patient over a time range
 
-
-
-
-
-//    public List<Measurement> getMeasurements(int patientId){
-//        return  entityManager.createQuery("SELECT  m FROM Measurement m inner join Patient p  where p.id = : patientId ",
-//                Measurement.class)
-//                .setParameter("patientId", patientId)
-//                .getResultList();
-//    }
-
-
-
-    //1. The information submissions (personal monitor data) of a patient over a time range
-
-    //, Date from, Date to
-    // and m.date > : from and m.date < : to
-    public List<Measurement> getMeasurementsByPatientId(int patientId ) {
-        return entityManager.createQuery("SELECT m FROM Measurement m WHERE m.patient.id = :patientId ",
+    public List<Measurement> getMeasurementsOfPatient(int patientId, Date from, Date to) {
+        return entityManager.createQuery("SELECT m FROM Measurement m  where m.patient.id = :patientId and m.date > :from and m.date < :to  ",
                 Measurement.class)
                 .setParameter("patientId", patientId)
-//                .setParameter("from", from)
-//                .setParameter("to", to)
+                .setParameter("from", from)
+                .setParameter("to", to)
                 .getResultList();
     }
+
+
+
+
+
+
 }
