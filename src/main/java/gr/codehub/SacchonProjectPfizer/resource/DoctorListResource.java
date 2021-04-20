@@ -24,12 +24,12 @@ public class DoctorListResource  extends ServerResource  {
     @Get("json")
     public ApiResult<List<DoctorRepresentation>> getDoctor(){
 
-        //authorisation check
-        try {
-            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        } catch (AuthorizationException e) {
-            return new ApiResult<>(null, 500, e.getMessage());
-        }
+//        //authorisation check
+//        try {
+//            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+//        } catch (AuthorizationException e) {
+//            return new ApiResult<>(null, 500, e.getMessage());
+//        }
 
 
         EntityManager em = JpaUtil.getEntityManager();

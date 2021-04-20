@@ -7,6 +7,7 @@ import gr.codehub.SacchonProjectPfizer.repository.DoctorRepository;
 import gr.codehub.SacchonProjectPfizer.repository.PatientRepository;
 import gr.codehub.SacchonProjectPfizer.representation.DoctorRepresentation;
 import gr.codehub.SacchonProjectPfizer.representation.PatientRepresentation;
+import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
@@ -33,6 +34,7 @@ public class RegisterDoctorResource extends ServerResource {
 
             Doctor doctor = doctorRepresentation.createDoctor();
             EntityManager em = JpaUtil.getEntityManager();
+            doctor.setRole(Shield.ROLE_DOCTOR);
             DoctorRepository doctorRepository = new DoctorRepository(em);
             doctorRepository.save(doctor);
             return new ApiResult<>(new DoctorRepresentation(doctor), 200,

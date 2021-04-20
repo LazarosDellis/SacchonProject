@@ -29,7 +29,7 @@ public class PatientRepresentation {
             username = patient.getUsername();
             email = patient.getEmail();
             password = patient.getPassword();
-           // doctorId = patient.getDoctor().getId();
+
                role = patient.getRole();
 
 

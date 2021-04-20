@@ -7,9 +7,9 @@ import org.restlet.security.Verifier;
 
 public class Shield {
 
-    public static final String ROLE_ADMIN = "admin";
+    public static final String ROLE_ADMIN = "chiefdoctor";
     public static final String ROLE_DOCTOR = "doctor";
-    public static final String ROLE_USER = "user";
+    public static final String ROLE_PATIENT = "patient";
 
 
     private Application application;

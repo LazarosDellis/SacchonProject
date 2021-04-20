@@ -30,8 +30,9 @@ public class CustomRouter {
         router.attach("/measurement/{id}", MeasurementResource.class); //get , post
 
 
-        router.attach("/consultation/{id}/patient/{patientId}", ConsultationResource.class);
+
         router.attach("/consultation/{id}/doctor/{doctorId}", ConsultationResource.class);
+
         router.attach("/doctor/{id}/consultation/{consultationId}", ConsultationResource.class);
         router.attach("/patient/{id}/consultation/{consultationId}", ConsultationResource.class);
 
@@ -56,11 +57,12 @@ public class CustomRouter {
 
 
         router.attach("/noPatient/noConsultation", PatientsWithNoDoctorResource.class);  //3 CHIEFDOCTOR
+
         //find patients that have not had a consultation in the last month
         //consult provide advice to a patient for the upcoming month (name
         //of medication and dosage)
 
-
+        //Patients don't get doctorId
 
         return router;
     }
@@ -71,18 +73,16 @@ public class CustomRouter {
 
 
 
+        router.attach("/consultation/{id}/patient/{patientId}", ConsultationResource.class);
+
+
+
+
 
 
 
         router.attach("/chiefDoctor", ChiefDoctorResource.class);
         router.attach("/chiefDoctor/{id}", ChiefDoctorResource.class);
-
-
-
-
-
-
-
 
 
         return router;

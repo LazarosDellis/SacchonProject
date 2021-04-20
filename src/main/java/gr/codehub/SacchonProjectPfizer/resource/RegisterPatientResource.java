@@ -4,6 +4,7 @@ import gr.codehub.SacchonProjectPfizer.jpaUtil.JpaUtil;
 import gr.codehub.SacchonProjectPfizer.model.Patient;
 import gr.codehub.SacchonProjectPfizer.repository.PatientRepository;
 import gr.codehub.SacchonProjectPfizer.representation.PatientRepresentation;
+import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.resource.Get;
 
 import org.restlet.resource.Post;
@@ -26,6 +27,7 @@ public class RegisterPatientResource extends ServerResource {
         Patient patient = patientRepresentation.createPatient();
         EntityManager em = JpaUtil.getEntityManager();
         PatientRepository patientRepository = new PatientRepository(em);
+        patient.setRole(Shield.ROLE_PATIENT);
         patientRepository.save(patient);
         return new ApiResult<>(new PatientRepresentation(patient), 200,
                 "The patient was successfully created");

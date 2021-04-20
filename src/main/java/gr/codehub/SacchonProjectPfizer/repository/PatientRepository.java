@@ -30,10 +30,13 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 
     //BIRD
     public Patient getByUsername(String username ){
-        return entityManager.createQuery("SELECT p  FROM Patient p " +
+       try{ return entityManager.createQuery("SELECT p  FROM Patient p " +
                 "WHERE p.username = :username",Patient.class)
                 .setParameter("username", username)
-                .getSingleResult();
+                .getSingleResult();}
+       catch (Exception e){
+           return null;
+       }
     }
 
     public List<Patient> getPatients(){
@@ -75,7 +78,7 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 
     public List<Patient> getPatientsWithNoDoctor() {
         return entityManager.createNativeQuery("select patient.* from patient left join (select * from consultation where date> dateadd(day,-30, getdate() ) ) consultation30" +
-                " on consultation30.patient_id =patient.id where consultation30.id is null")
+                " on consultation30.patient_id =patient.id where consultation30.id is null", Patient.class)
                 .getResultList();
 
 

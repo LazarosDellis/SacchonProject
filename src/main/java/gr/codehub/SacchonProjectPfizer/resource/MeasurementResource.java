@@ -26,7 +26,7 @@ public class MeasurementResource extends ServerResource {
 
         //authorisation check
         try {
-            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
             // efboleumena try
         } catch (AuthorizationException e) {
             return new ApiResult<>(null, 500, e.getMessage());
@@ -47,7 +47,7 @@ public class MeasurementResource extends ServerResource {
 
         //authorisation check
         try {
-            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         } catch (AuthorizationException e) {
             return new ApiResult<>(null, 500, e.getMessage());
         }
@@ -74,7 +74,7 @@ public class MeasurementResource extends ServerResource {
 
         //authorisation check
         try {
-            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         } catch (AuthorizationException e) {
             return new ApiResult<>(null, 500, e.getMessage());
         }

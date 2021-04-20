@@ -27,10 +27,14 @@ public class ChiefDoctorRepository extends Repository<ChiefDoctor, Integer> {
     }
 
     // BIRD
-    public ChiefDoctor getById(int chiefDoctorId) {
-        return entityManager.createQuery("SELECT b FROM ChiefDoctor", ChiefDoctor.class)
-                .setParameter("chiefDoctorId", chiefDoctorId)
-                .getSingleResult();
+    public ChiefDoctor getByUsername(String username ) {
+        try{  return entityManager.createQuery("SELECT c  FROM ChiefDoctor c " +
+                "WHERE c.username = : username", ChiefDoctor.class)
+                .setParameter("username", username)
+                .getSingleResult();}
+        catch (Exception e){
+            return null;
+        }
     }
 
 

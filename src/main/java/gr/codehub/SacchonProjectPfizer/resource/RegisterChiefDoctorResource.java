@@ -7,6 +7,7 @@ import gr.codehub.SacchonProjectPfizer.model.ChiefDoctor;
 import gr.codehub.SacchonProjectPfizer.repository.ChiefDoctorRepository;
 import gr.codehub.SacchonProjectPfizer.representation.ChiefDoctorRepresentation;
 
+import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
@@ -32,6 +33,7 @@ public class RegisterChiefDoctorResource extends ServerResource {
         ChiefDoctor chiefDoctor = chiefDoctorRepresentation.createChiefDoctor();
         EntityManager em = JpaUtil.getEntityManager();
         ChiefDoctorRepository chiefDoctorRepository = new ChiefDoctorRepository(em);
+        chiefDoctor.setRole(Shield.ROLE_ADMIN);
         chiefDoctorRepository.save(chiefDoctor);
         return new ApiResult<>(new ChiefDoctorRepresentation(chiefDoctor), 200,
                 "The ChiefDoctor was successfully created");

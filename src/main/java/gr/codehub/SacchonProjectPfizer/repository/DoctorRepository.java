@@ -34,10 +34,13 @@ public class DoctorRepository  extends Repository<Doctor, Integer>{
 
     //BIRD
     public Doctor getByUsername(String username ) {
-        return entityManager.createQuery("SELECT d  FROM Doctor d " +
+      try{  return entityManager.createQuery("SELECT d  FROM Doctor d " +
                 "WHERE d.username = : username", Doctor.class)
                 .setParameter("username", username)
-                .getSingleResult();
+                .getSingleResult();}
+      catch (Exception e){
+          return null;
+      }
     }
     public List<Patient> getPatient(int doctorId){
         return entityManager.createQuery("SELECT p  FROM Patient p WHERE p.id = :patientId",

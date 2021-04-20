@@ -68,7 +68,7 @@ public class MeasurementListResource extends ServerResource {
 
         //authorisation check
         try {
-            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         } catch (AuthorizationException e) {
             return new ApiResult<>(null, 500, e.getMessage());
         }
@@ -89,7 +89,7 @@ public class MeasurementListResource extends ServerResource {
 
         //authorisation check
         try {
-            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         } catch (AuthorizationException e) {
             return new ApiResult<>(null, 500, e.getMessage());
         }

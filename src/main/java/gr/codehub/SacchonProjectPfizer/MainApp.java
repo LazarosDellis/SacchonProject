@@ -31,7 +31,7 @@ public class MainApp extends Application {
 
         getRoles().add(new Role(this, Shield.ROLE_ADMIN));
         getRoles().add(new Role(this, Shield.ROLE_DOCTOR));
-        getRoles().add(new Role(this, Shield.ROLE_USER));
+        getRoles().add(new Role(this, Shield.ROLE_PATIENT));
 
     }
 
@@ -68,7 +68,7 @@ public class MainApp extends Application {
         Router apiRouter = customRouter.protectedResources();
         apiGuard.setNext(apiRouter);
 
-      //  publicRouter.attachDefault(apiGuard);
+        publicRouter.attachDefault(apiGuard);
 
         // return publicRouter;
 

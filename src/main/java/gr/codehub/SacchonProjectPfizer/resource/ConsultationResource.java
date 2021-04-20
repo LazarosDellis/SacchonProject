@@ -6,6 +6,7 @@ import gr.codehub.SacchonProjectPfizer.model.Consultation;
 import gr.codehub.SacchonProjectPfizer.model.Doctor;
 import gr.codehub.SacchonProjectPfizer.model.Patient;
 import gr.codehub.SacchonProjectPfizer.repository.ConsultationRepository;
+import gr.codehub.SacchonProjectPfizer.repository.PatientRepository;
 import gr.codehub.SacchonProjectPfizer.representation.ConsultationRepresentation;
 
 import gr.codehub.SacchonProjectPfizer.security.Shield;
@@ -15,10 +16,12 @@ import javax.persistence.EntityManager;
 
 public class ConsultationResource extends ServerResource {
 
+    private int patientId;
     private int id;
 
     @Override
     protected void doInit() {
+        patientId = Integer.parseInt(getAttribute("patientId"));
         id = Integer.parseInt(getAttribute("id"));
     }
 
@@ -27,9 +30,19 @@ public class ConsultationResource extends ServerResource {
 
         //authorisation check
         try {
-            ResourceUtils.checkRole(this, Shield.ROLE_USER);
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         } catch (AuthorizationException e) {
-            return new ApiResult<>(null, 500, e.getMessage());
+            try {
+                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+            } catch (AuthorizationException e1) {
+                try{
+                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+                }catch (AuthorizationException e2) {
+                    return new ApiResult<>(null, 500, e.getMessage());
+                }
+            }
+
+
         }
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -37,7 +50,7 @@ public class ConsultationResource extends ServerResource {
 
 
         ConsultationRepository consultationRepository = new ConsultationRepository(em);
-        Consultation consultation = consultationRepository.read(id);
+        Consultation consultation = consultationRepository.read(patientId);
         ConsultationRepresentation consultationRepresentation2 = new ConsultationRepresentation(consultation);
         em.close();
 
@@ -65,6 +78,10 @@ public class ConsultationResource extends ServerResource {
         Doctor doctor = em.find(Doctor.class, doctorId);
         int patientId = consultationRepresentationIn.getPatientId();
         Patient patient = em.find(Patient.class, patientId);
+        PatientRepository patientRepository = new PatientRepository(em);
+        patient.setDoctor(doctor);
+        patientRepository.save(patient);
+
 
         Consultation consultation = consultationRepresentationIn.createConsultation();
         consultation.setDoctor(doctor);
