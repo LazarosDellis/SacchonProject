@@ -1,6 +1,5 @@
 package gr.codehub.SacchonProjectPfizer.router;
 
-import gr.codehub.SacchonProjectPfizer.repository.ChiefDoctorRepository;
 import gr.codehub.SacchonProjectPfizer.resource.*;
 import org.restlet.Application;
 import org.restlet.routing.Router;
@@ -16,7 +15,11 @@ public class CustomRouter {
     public Router publicResources() {
         Router router = new Router();
         router.attach("/ping", PingServerResource.class); //get
-        router.attach("/register", RegisterResource.class);
+        router.attach("/registerDoctor", RegisterDoctorResource.class);
+        router.attach("/registerPatient", RegisterPatientResource.class);
+        router.attach("/registerChiefDoctor", RegisterChiefDoctorResource.class);
+
+
 
         router.attach("/patient", PatientListResource.class); //get, post
         router.attach("/patient/{id}", PatientResource.class); //get, put, delete
@@ -24,7 +27,7 @@ public class CustomRouter {
         router.attach("/doctor", DoctorListResource.class);//get, post
         router.attach("/doctor/{id}", DoctorResource.class); // get one / post / put
 
-        router.attach("/measurement/{id}", MeasurementResource.class);
+        router.attach("/measurement/{id}", MeasurementResource.class); //get , post
         router.attach("/measurement/{id}/patient/{patientId}", MeasurementListResource.class); // KANEI TO IDIO ME TO PROHGOUMENO
 
         router.attach("/consultation/{id}/patient/{patientId}", ConsultationResource.class);
@@ -32,8 +35,18 @@ public class CustomRouter {
         router.attach("/doctor/{id}/consultation/{consultationId}", ConsultationResource.class);
         router.attach("/patient/{id}/consultation/{consultationId}", ConsultationResource.class);
 
+        router.attach("/patient/measurements/dateFrom/{from}/dateTo/{to}",PatientsWithNoActivityResource.class );
+
+        router.attach("/doctor/consultation/dateFrom/{from}/dateTo/{to}",DoctorsWithNoActivityResource.class );
+
+        router.attach("/consultation/doctor/{id}/dateFrom/{from}/dateTo/{to}", ConsultationListResource.class);
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 
         router.attach("/measurement/patient/{id}", MeasurementListResource.class);
         router.attach("/patient/{id}/consultation", ConsultationsOfAPatientResource.class);//

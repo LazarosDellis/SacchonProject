@@ -68,7 +68,7 @@ public class MainApp extends Application {
         Router apiRouter = customRouter.protectedResources();
         apiGuard.setNext(apiRouter);
 
-        publicRouter.attachDefault(apiGuard);
+      //  publicRouter.attachDefault(apiGuard);
 
         // return publicRouter;
 

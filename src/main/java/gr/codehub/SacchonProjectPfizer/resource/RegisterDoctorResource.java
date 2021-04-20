@@ -14,19 +14,20 @@ import org.restlet.resource.ServerResource;
 import javax.persistence.EntityManager;
 import javax.print.Doc;
 
-public class RegisterResource extends ServerResource {
+public class RegisterDoctorResource extends ServerResource {
 
 
 
     @Post("json")
 
-    public ApiResult<DoctorRepresentation> registerPatient(DoctorRepresentation doctorRepresentation){
+    public ApiResult<DoctorRepresentation> registerDoctor(DoctorRepresentation doctorRepresentation){
+
             if (doctorRepresentation == null)
-                return new ApiResult<>(null, 400, "No input data to create the customer");
+                return new ApiResult<>(null, 400, "No input data to create the Doctor");
             if (doctorRepresentation.getFullName() == null)
-                return new ApiResult<>(null, 400, "No name was given to create the customer");
+                return new ApiResult<>(null, 400, "No name was given to create the Doctor");
             if (doctorRepresentation.getUsername() == null)
-                return new ApiResult<>(null, 400, "No username was given to create the customer");
+                return new ApiResult<>(null, 400, "No username was given to create the Doctor");
             if (usernameExists(doctorRepresentation.getUsername()))
                 return new ApiResult<>(null, 400, "Duplicate username");
 
@@ -38,23 +39,7 @@ public class RegisterResource extends ServerResource {
                     "The Doctor was successfully created");
     }
 
-    public ApiResult<PatientRepresentation> registerPatient(PatientRepresentation patientRepresentation){
-            if (patientRepresentation == null)
-                return new ApiResult<>(null, 400, "No input data to create the customer");
-            if (patientRepresentation.getFullName() == null)
-                return new ApiResult<>(null, 400, "No name was given to create the customer");
-            if (patientRepresentation.getUsername() == null)
-                return new ApiResult<>(null, 400, "No username was given to create the customer");
-            if (usernameExists(patientRepresentation.getUsername()))
-                return new ApiResult<>(null, 400, "Duplicate username");
 
-            Patient patient = patientRepresentation.createPatient();
-            EntityManager em = JpaUtil.getEntityManager();
-            PatientRepository patientRepository = new PatientRepository(em);
-            patientRepository.save(patient);
-            return new ApiResult<>(new PatientRepresentation(patient), 200,
-                    "The patient was successfully created");
-    }
 
 
     public boolean usernameExists(String candidateUsername) {

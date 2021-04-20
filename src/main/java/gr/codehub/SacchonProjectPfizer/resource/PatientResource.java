@@ -65,8 +65,8 @@ public class PatientResource extends ServerResource {
         int doctorId = patientRepresentation.getDoctorId();
         Doctor doctor = em.find(Doctor.class, doctorId);
 
-        PatientRepository productRepository = new PatientRepository(em);
-        Patient patient = productRepository.read(id);
+        PatientRepository patientRepository = new PatientRepository(em);
+        Patient patient = patientRepository.read(id);
 
 
         patient.setUsername(patientRepresentation.getUsername());
@@ -76,7 +76,7 @@ public class PatientResource extends ServerResource {
         patient.setDoctor(doctor);
 
 
-        productRepository.save(patient);
+        patientRepository.save(patient);
 
         PatientRepresentation patientRepresentation2 = new PatientRepresentation(patient);
         em.close();

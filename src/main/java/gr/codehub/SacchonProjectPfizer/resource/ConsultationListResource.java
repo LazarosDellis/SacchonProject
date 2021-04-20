@@ -12,6 +12,9 @@ import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.resource.*;
 
 import javax.persistence.EntityManager;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -27,7 +30,7 @@ public class ConsultationListResource extends ServerResource {
     protected void doInit() {
         id = Integer.parseInt(getAttribute("id"));
       //  patientId = Integer.parseInt(getAttribute("patientId"));
-       doctorId = Integer.parseInt(getAttribute("doctorId"));
+
       //  chiefDoctorId = Integer.parseInt(getAttribute("chiefDoctorId"));
     }
 
@@ -37,7 +40,21 @@ public class ConsultationListResource extends ServerResource {
 
     @Get("json")
     public ApiResult<List<ConsultationRepresentation>> getConsultation() {
+     // String dId = getAttribute("doctorId");
+        String dateF = getAttribute("from");
+        String dateT = getAttribute("to");
+        Date dateFrom = null;
+        Date dateTo = null;
+        Integer doctorId = null;
 
+        try {
+            dateFrom = new SimpleDateFormat("yyyy-MM-dd").parse(dateF);
+            dateTo = new SimpleDateFormat("yyyy-MM-dd").parse(dateT);
+
+           // docId = new  Integer.parseInt(getAttribute("dId"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -47,7 +64,7 @@ public class ConsultationListResource extends ServerResource {
         List<Consultation> consultations = null;
 
         //consultations = consultationRepository.getConsultationsByPatientId(patientId);
-        consultations = consultationRepository.getConsultationsByDoctorId(doctorId);
+        consultations = consultationRepository.getConsultationsByDoctorId(doctorId, dateFrom, dateTo);
 
 
 

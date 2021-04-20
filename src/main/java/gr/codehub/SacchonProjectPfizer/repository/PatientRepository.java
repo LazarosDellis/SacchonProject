@@ -31,7 +31,7 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 
     public Patient getByUsername(String username ){
         return entityManager.createQuery("SELECT p  FROM Patient p " +
-                "WHERE p.username = : username",Patient.class)
+                "WHERE p.username = :username",Patient.class)
                 .setParameter("username", username)
                 .getSingleResult();
     }
@@ -59,7 +59,7 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 //                "")
 //    }
     // return entityManager.createQuery("SELECT m  FROM Measurement m WHERE  m.date :from and :to ",
-
+//2.
     public List<Measurement> getAvgOfMeasurements(int patientId, Date from1, Date to){
         return entityManager.createQuery("SELECT AVG(m.valueOfMeasurement)  FROM Measurement m WHERE m.patient.id = : patientId and  m.date >= :from1 and m.date <= :to GROUP BY m.typeOfMeasurement ",
 
@@ -76,6 +76,19 @@ public class PatientRepository  extends Repository<Patient, Integer> {
 //period their average carb intake over a user-specified period the
 //current and past consultations from doctors
 
+
+    //   4. The list of the patients with no activity over a time range
+    public List<Patient> getActivityMeasurements(Date from, Date to) {
+        return entityManager.createNativeQuery("SELECT * FROM Patient WHERE Patient.id NOT IN(SELECT Patient.id FROM Patient " +
+                        "Left JOIN Measurement " +
+                        "ON Patient.id = Measurement.patient_id " +
+                        "WHERE Measurement.date > :from " +
+                        "AND Measurement.date < :to) ",
+                Patient.class)
+                .setParameter("from", from)
+                .setParameter("to", to)
+                .getResultList();
+    }
 
 
 

@@ -1,6 +1,7 @@
 package gr.codehub.SacchonProjectPfizer.repository;
 
 import gr.codehub.SacchonProjectPfizer.model.Consultation;
+import gr.codehub.SacchonProjectPfizer.model.Doctor;
 import gr.codehub.SacchonProjectPfizer.model.Patient;
 
 import javax.persistence.EntityManager;
@@ -8,6 +9,7 @@ import javax.persistence.Query;
 import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static java.util.concurrent.TimeUnit.DAYS;
@@ -61,7 +63,9 @@ public class ConsultationRepository extends Repository<Consultation, Integer> {
 //
 //            ("SELECT * FROM customers, "jpqlexample.entities.Customer.class)
 //            .getResultList();
-// p.id = :patientId
+
+
+    // p.id = :patientId
     //inner join Patient p
     public List<Consultation> getConsultationsOfAPatient(int patientId) {
         try{
@@ -77,10 +81,15 @@ public class ConsultationRepository extends Repository<Consultation, Integer> {
 
 
     //2. The information submissions (consultations) of a doctor over a time range
-    public List<Consultation> getConsultationsByDoctorId(int doctorId ) {
-        return entityManager.createQuery("SELECT c FROM Consultation c WHERE c.doctor.id = :doctorId",
+    public List<Consultation> getConsultationsByDoctorId(int doctorId, Date from, Date to ) {
+        return entityManager.createNativeQuery("Select * from Consultation" +
+                "where Consultation.date > :from" +
+                "AND Consultation.date < :to" +
+                "AND Consultation.doctor_id = doctorId",
                 Consultation.class)
                 .setParameter("doctorId", doctorId)
+                .setParameter("from", from)
+                .setParameter("to", to)
                 .getResultList();
 
 

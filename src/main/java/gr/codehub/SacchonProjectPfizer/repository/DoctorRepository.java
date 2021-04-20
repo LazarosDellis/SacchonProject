@@ -47,7 +47,7 @@ public class DoctorRepository  extends Repository<Doctor, Integer>{
     }
 
     public List<Measurement> getPatientData(String fullName) {
-        return entityManager.createQuery("SELECT m FROM Measurement m inner join Patient p  where p.id = : patientId ",
+        return entityManager.createQuery("SELECT m FROM Measurement m inner join Patient p  where p.id = :patientId ",
                 Measurement.class)
                 .setParameter("fullName", fullName)
                 .getResultList();
@@ -55,7 +55,7 @@ public class DoctorRepository  extends Repository<Doctor, Integer>{
     }
 
     public List<Consultation> getConsultations(String fullName) {
-       return entityManager.createQuery("SELECT c FROM Consultation c inner join Patient p where p.id = : patientId ",
+       return entityManager.createQuery("SELECT c FROM Consultation c inner join Patient p where p.id = :patientId ",
                 Consultation.class)
                 .setParameter("fullName", fullName)
                 .getResultList();
@@ -82,6 +82,19 @@ public class DoctorRepository  extends Repository<Doctor, Integer>{
                 .getResultList();
     }
 
+    // 5. The list of the doctors with no activity over a time range
+
+    public List<Doctor> getActivityConsultations(Date from, Date to) {
+        return entityManager.createNativeQuery("SELECT * FROM Doctor WHERE Doctor.id NOT IN(SELECT Doctor.id FROM Doctor " +
+                        "Left JOIN Consultation " +
+                        "ON Doctor.id = Consultation.doctor_id " +
+                        "WHERE Consultation.date > :from " +
+                        "AND Consultation.date < :to) ",
+                Doctor.class)
+                .setParameter("from", from)
+                .setParameter("to", to)
+                .getResultList();
+    }
 
 
 }
