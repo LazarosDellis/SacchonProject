@@ -30,6 +30,8 @@ public class AVGMeasurementResource  extends ServerResource {
 
     @Get("json")
     public ApiResult<List<Double>> getConsultation() {
+
+
         // String dId = getAttribute("doctorId");
         String dateF = getAttribute("from");
         String dateT = getAttribute("to");

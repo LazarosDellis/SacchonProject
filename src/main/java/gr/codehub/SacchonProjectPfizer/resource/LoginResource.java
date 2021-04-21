@@ -9,6 +9,6 @@ import org.restlet.resource.ServerResource;
 public class LoginResource extends ServerResource {
 
 
-//    @Post
+//   @GET
 
 }
