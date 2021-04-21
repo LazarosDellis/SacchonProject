@@ -19,7 +19,7 @@ public class CustomRouter {
         router.attach("/registerPatient", RegisterPatientResource.class);
         router.attach("/registerChiefDoctor", RegisterChiefDoctorResource.class);
 
-
+      //  router.attach("/logIn", LoginResource.class);
 
         router.attach("/patient", PatientListResource.class); //get, post
         router.attach("/patient/{id}", PatientResource.class); //get, put, delete

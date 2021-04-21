@@ -48,6 +48,19 @@ public class ConsultationListResource extends ServerResource {
             e.printStackTrace();
         }
 
+        //authorisation check
+
+            try {
+                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+           } catch (AuthorizationException e) {
+                try{
+                   ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+               }catch (AuthorizationException e1) {
+                  return new ApiResult<>(null, 500, e.getMessage());
+                }
+           }
+
+
 
         EntityManager em = JpaUtil.getEntityManager();
 

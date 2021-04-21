@@ -33,11 +33,21 @@ public class DoctorResource extends ServerResource {
     public ApiResult<DoctorRepresentation> getDoctor(){
 
         //authorisation check
-        try {
-            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        } catch (AuthorizationException e) {
-            return new ApiResult<>(null, 500, e.getMessage());
-        }
+        //authorisation check
+
+            try {
+                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+            } catch (AuthorizationException e1) {
+                try{
+                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+                }catch (AuthorizationException e2) {
+                    return new ApiResult<>(null, 500, e1.getMessage());
+                }
+            }
+
+
+
+
 
         EntityManager em = JpaUtil.getEntityManager();
         DoctorRepository doctorRepository = new DoctorRepository(em);

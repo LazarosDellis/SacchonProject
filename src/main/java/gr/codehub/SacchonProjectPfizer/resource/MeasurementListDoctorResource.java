@@ -29,12 +29,23 @@ public class MeasurementListDoctorResource extends ServerResource {
     @Get("json")
     public ApiResult<List<MeasurementRepresentation>> getMeasurement() {
 
-        //authorisation check
-//        try {
-//            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-//        } catch (AuthorizationException e) {
-//            return new ApiResult<>(null, 500, e.getMessage());
-//        }
+
+//authorisation check
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        } catch (AuthorizationException e) {
+            try {
+                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+            } catch (AuthorizationException e1) {
+                try{
+                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+                }catch (AuthorizationException e2) {
+                    return new ApiResult<>(null, 500, e.getMessage());
+                }
+            }
+
+
+        }
 
         EntityManager em = JpaUtil.getEntityManager();
 

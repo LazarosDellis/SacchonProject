@@ -65,11 +65,11 @@ public class ConsultationResource extends ServerResource {
     public ApiResult<ConsultationRepresentation> add(ConsultationRepresentation consultationRepresentationIn) {
 
         //authorisation check
-//        try {
-//            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-//        } catch (AuthorizationException e) {
-//            return new ApiResult<>(null, 500, e.getMessage());
-//        }
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        } catch (AuthorizationException e) {
+            return new ApiResult<>(null, 500, e.getMessage());
+        }
 
         if (consultationRepresentationIn == null) return null;
         if (consultationRepresentationIn.getConsult() == null) return null;
@@ -99,12 +99,12 @@ public class ConsultationResource extends ServerResource {
     @Put("json")//update
     public ApiResult<ConsultationRepresentation> putConsultation(ConsultationRepresentation consultationRepresentation) {
 
-//        //authorisation check
-//        try {
-//            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-//        } catch (AuthorizationException e) {
-//            return new ApiResult<>(null, 500, e.getMessage());
-//        }
+        //authorisation check
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        } catch (AuthorizationException e) {
+            return new ApiResult<>(null, 500, e.getMessage());
+        }
 
         EntityManager em = JpaUtil.getEntityManager();
 

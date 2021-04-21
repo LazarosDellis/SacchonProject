@@ -24,12 +24,18 @@ public class PatientListResource extends ServerResource {
     @Get("json")
     public ApiResult<List<PatientRepresentation>> getPatient(){
 
-//        //authorisation check
-//        try {
-//          ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-//        } catch (AuthorizationException e) {
-//            return new ApiResult<>(null, 500, e.getMessage());
-//        }
+//authorisation check
+
+            try {
+                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+            } catch (AuthorizationException e1) {
+                try{
+                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+                }catch (AuthorizationException e2) {
+                    return new ApiResult<>(null, 500, e1.getMessage());
+                }
+            }
+
 
 
         EntityManager em = JpaUtil.getEntityManager();
@@ -49,6 +55,15 @@ public class PatientListResource extends ServerResource {
 
     @Post("json")
     public ConsultationRepresentation add(ConsultationRepresentation consultationRepresentation){
+
+//       {
+//            try{
+//                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+//            }catch (AuthorizationException e2) {
+//                return new ApiResult<>(null, 500, e2.getMessage());
+//            }
+//        }
+
 
         if (consultationRepresentation ==null) return null;
         if (consultationRepresentation.getConsult() == null) return null;
