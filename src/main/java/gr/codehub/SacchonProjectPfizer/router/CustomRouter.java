@@ -29,22 +29,22 @@ public class CustomRouter {
 
         router.attach("/measurement/{id}", MeasurementResource.class); //get , post
 
+        router.attach("/noPatient/noConsultation", PatientsWithNoDoctorResource.class);  //3 DOCTOR
 
-
-        router.attach("/consultation/{id}/doctor/{doctorId}", ConsultationResource.class);
+        router.attach("/consultation/{id}/doctor/{doctorId}", ConsultationResource.class); // Doctor creates updates consultation
 
         router.attach("/doctor/{id}/consultation/{consultationId}", ConsultationResource.class);
         router.attach("/patient/{id}/consultation/{consultationId}", ConsultationResource.class);
 
-        router.attach("/patient/measurements/dateFrom/{from}/dateTo/{to}",PatientsWithNoActivityResource.class );
+        router.attach("/patient/measurements/dateFrom/{from}/dateTo/{to}",PatientsWithNoActivityResource.class ); //4. CHIEFDOCTOR
 
-        router.attach("/doctor/consultation/dateFrom/{from}/dateTo/{to}",DoctorsWithNoActivityResource.class );
+        router.attach("/doctor/consultation/dateFrom/{from}/dateTo/{to}",DoctorsWithNoActivityResource.class ); //5.CHIEFDOCTOR
 
         router.attach("/consultation/doctor/{id}/dateFrom/{from}/dateTo/{to}", ConsultationListResource.class);
 
         router.attach("/measurementavg/patient/{id}/dateFrom/{from}/dateTo/{to}", AVGMeasurementResource.class); //GET AVG OF MEASUREMENTS OF A PATIENT
 
-
+        router.attach("/consultation/{id}/patient/{patientId}", OneConsultationOfAPatientResource.class); // see a single consultation of a patient!!!!!!!!!
 
         router.attach("/measurement/{id}/patient/{patientId}", MeasurementListResource.class); // GET MEASUREMENTS OF A PATIENT
         router.attach("/patient/{id}/consultation", ConsultationsOfAPatientResource.class);// GET CONSULTATIONS OF A PATIENT
@@ -56,13 +56,9 @@ public class CustomRouter {
 
 
 
-        router.attach("/noPatient/noConsultation", PatientsWithNoDoctorResource.class);  //3 CHIEFDOCTOR
 
-        //find patients that have not had a consultation in the last month
-        //consult provide advice to a patient for the upcoming month (name
-        //of medication and dosage)
 
-        //Patients don't get doctorId
+
 
         return router;
     }
@@ -73,7 +69,7 @@ public class CustomRouter {
 
 
 
-        router.attach("/consultation/{id}/patient/{patientId}", ConsultationResource.class);
+
 
 
 

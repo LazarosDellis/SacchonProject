@@ -18,56 +18,58 @@ public class ConsultationResource extends ServerResource {
 
     private int patientId;
     private int id;
+    private int doctorId;
 
     @Override
     protected void doInit() {
-        patientId = Integer.parseInt(getAttribute("patientId"));
+   //     patientId = Integer.parseInt(getAttribute("patientId"));
         id = Integer.parseInt(getAttribute("id"));
+        doctorId = Integer.parseInt(getAttribute("doctorId"));
     }
 
     @Get("json") // get
-    public ApiResult<ConsultationRepresentation> getConsultation() {
+//    public ApiResult<ConsultationRepresentation> getConsultation() {
+//
+//        //authorisation check
+//        try {
+//            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+//        } catch (AuthorizationException e) {
+//            try {
+//                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+//            } catch (AuthorizationException e1) {
+//                try{
+//                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+//                }catch (AuthorizationException e2) {
+//                    return new ApiResult<>(null, 500, e.getMessage());
+//                }
+//            }
+//
+//
+//        }
+//
+//        EntityManager em = JpaUtil.getEntityManager();
+//
+//
+//
+//        ConsultationRepository consultationRepository = new ConsultationRepository(em);
+//        Consultation consultation = consultationRepository.read(patientId);
+//        ConsultationRepresentation consultationRepresentation2 = new ConsultationRepresentation(consultation);
+//        em.close();
+//
+//
+//        return new ApiResult<>(consultationRepresentation2, 200, "ok");
+//
+//    }
 
-        //authorisation check
-        try {
-            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        } catch (AuthorizationException e) {
-            try {
-                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-            } catch (AuthorizationException e1) {
-                try{
-                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
-                }catch (AuthorizationException e2) {
-                    return new ApiResult<>(null, 500, e.getMessage());
-                }
-            }
-
-
-        }
-
-        EntityManager em = JpaUtil.getEntityManager();
-
-
-
-        ConsultationRepository consultationRepository = new ConsultationRepository(em);
-        Consultation consultation = consultationRepository.read(patientId);
-        ConsultationRepresentation consultationRepresentation2 = new ConsultationRepresentation(consultation);
-        em.close();
-
-
-        return new ApiResult<>(consultationRepresentation2, 200, "ok");
-
-    }
-
-    @Post("json")// create
+    @Post("json")// create consultation from a doctor to a patient
     public ApiResult<ConsultationRepresentation> add(ConsultationRepresentation consultationRepresentationIn) {
 
         //authorisation check
-        try {
-            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        } catch (AuthorizationException e) {
-            return new ApiResult<>(null, 500, e.getMessage());
-        }
+//        try {
+//            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+//        } catch (AuthorizationException e) {
+//            return new ApiResult<>(null, 500, e.getMessage());
+//        }
 
         if (consultationRepresentationIn == null) return null;
         if (consultationRepresentationIn.getConsult() == null) return null;
@@ -97,12 +99,12 @@ public class ConsultationResource extends ServerResource {
     @Put("json")//update
     public ApiResult<ConsultationRepresentation> putConsultation(ConsultationRepresentation consultationRepresentation) {
 
-        //authorisation check
-        try {
-            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-        } catch (AuthorizationException e) {
-            return new ApiResult<>(null, 500, e.getMessage());
-        }
+//        //authorisation check
+//        try {
+//            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+//        } catch (AuthorizationException e) {
+//            return new ApiResult<>(null, 500, e.getMessage());
+//        }
 
         EntityManager em = JpaUtil.getEntityManager();
 

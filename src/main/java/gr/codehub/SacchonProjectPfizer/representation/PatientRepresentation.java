@@ -30,7 +30,7 @@ public class PatientRepresentation {
             email = patient.getEmail();
             password = patient.getPassword();
 
-               role = patient.getRole();
+            role = patient.getRole();
 
 
         }
