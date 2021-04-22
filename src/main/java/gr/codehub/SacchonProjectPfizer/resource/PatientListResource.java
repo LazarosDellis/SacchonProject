@@ -25,16 +25,16 @@ public class PatientListResource extends ServerResource {
     public ApiResult<List<PatientRepresentation>> getPatient(){
 
 //authorisation check
-
-            try {
-                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-            } catch (AuthorizationException e1) {
-                try{
-                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
-                }catch (AuthorizationException e2) {
-                    return new ApiResult<>(null, 500, e1.getMessage());
-                }
-            }
+//
+//            try {
+//                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+//            } catch (AuthorizationException e1) {
+//                try{
+//                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+//                }catch (AuthorizationException e2) {
+//                    return new ApiResult<>(null, 500, e1.getMessage());
+//                }
+//            }
 
 
 
@@ -56,13 +56,17 @@ public class PatientListResource extends ServerResource {
     @Post("json")
     public ConsultationRepresentation add(ConsultationRepresentation consultationRepresentation){
 
-//       {
-//            try{
-//                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-//            }catch (AuthorizationException e2) {
-//                return new ApiResult<>(null, 500, e2.getMessage());
-//            }
-//        }
+        //authorisation check
+
+                try{
+                    ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+                }catch (AuthorizationException e2) {
+                    return null;
+                }
+
+
+
+
 
 
         if (consultationRepresentation ==null) return null;

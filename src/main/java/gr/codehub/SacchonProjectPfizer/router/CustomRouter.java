@@ -14,15 +14,22 @@ public class CustomRouter {
 
     public Router publicResources() {
         Router router = new Router();
+
         router.attach("/ping", PingServerResource.class); //get
+
         router.attach("/registerDoctor", RegisterDoctorResource.class);
         router.attach("/registerPatient", RegisterPatientResource.class);
-        router.attach("/registerChiefDoctor", RegisterChiefDoctorResource.class);
 
+        router.attach("/registerChiefDoctor", RegisterChiefDoctorResource.class);
+        router.attach("/login", LoginResource.class);
       //  router.attach("/logIn", LoginResource.class);
 
+
+
+
+        router.attach("/consultation/{id}", GetOneConsultationResource.class);
         router.attach("/patient", PatientListResource.class); //get, post
-        router.attach("/patient/{id}", PatientResource.class); //get, put, delete
+
 
         router.attach("/doctor", DoctorListResource.class);//get, post
         router.attach("/doctor/{id}", DoctorResource.class); // get one / post / put
@@ -34,12 +41,12 @@ public class CustomRouter {
         router.attach("/consultation/{id}/doctor/{doctorId}", ConsultationResource.class); // Doctor updates consultation
 
         router.attach("/consultation/doctor/{id}", PostConsultationResource.class);   // Doctor creates consultation
-
+        router.attach("/consult/{id}", ConsultationResource.class);//delete
 
         router.attach("/doctor/{id}/consultation/{consultationId}", ConsultationResource.class);
         router.attach("/patient/{id}/consultation/{consultationId}", ConsultationResource.class);
 
-        router.attach("/patient/measurements/dateFrom/{from}/dateTo/{to}",PatientsWithNoActivityResource.class ); //4. CHIEFDOCTOR
+
 
         router.attach("/doctor/consultation/dateFrom/{from}/dateTo/{to}",DoctorsWithNoActivityResource.class ); //5.CHIEFDOCTOR
 
@@ -73,11 +80,11 @@ public class CustomRouter {
 
 
 
+        router.attach("/patient/{id}", PatientResource.class); //get, put, delete
 
 
 
-
-
+        router.attach("/patient/measurements/dateFrom/{from}/dateTo/{to}",PatientsWithNoActivityResource.class ); //4. CHIEFDOCTOR
 
 
         router.attach("/chiefDoctor", ChiefDoctorResource.class);

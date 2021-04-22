@@ -1,12 +1,11 @@
 package gr.codehub.SacchonProjectPfizer.repository;
 
-import com.sun.jdi.event.ExceptionEvent;
+
 import gr.codehub.SacchonProjectPfizer.model.Consultation;
-import gr.codehub.SacchonProjectPfizer.model.Doctor;
-import gr.codehub.SacchonProjectPfizer.model.Patient;
+
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
+
 import java.time.LocalDate;
 import java.time.temporal.Temporal;
 import java.util.ArrayList;
@@ -100,5 +99,11 @@ public class ConsultationRepository extends Repository<Consultation, Integer> {
     }
 
 
-
+//    public boolean deleteConsultation(int id) {
+//
+//            return (boolean) entityManager.createNativeQuery("Delete * from Consultation where Consultation.id = :id", Consultation.class).setParameter("id", id).getSingleResult();
+//
+//
+//
+//    }
 }

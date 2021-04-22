@@ -1,5 +1,6 @@
 package gr.codehub.SacchonProjectPfizer.resource;
 
+import gr.codehub.SacchonProjectPfizer.exception.AuthorizationException;
 import gr.codehub.SacchonProjectPfizer.jpaUtil.JpaUtil;
 import gr.codehub.SacchonProjectPfizer.model.Consultation;
 import gr.codehub.SacchonProjectPfizer.model.Doctor;
@@ -7,6 +8,7 @@ import gr.codehub.SacchonProjectPfizer.model.Patient;
 import gr.codehub.SacchonProjectPfizer.repository.ConsultationRepository;
 import gr.codehub.SacchonProjectPfizer.repository.PatientRepository;
 import gr.codehub.SacchonProjectPfizer.representation.ConsultationRepresentation;
+import gr.codehub.SacchonProjectPfizer.security.Shield;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
@@ -25,11 +27,11 @@ public class PostConsultationResource extends ServerResource {
     public ApiResult<ConsultationRepresentation> add(ConsultationRepresentation consultationRepresentationIn) {
 
         //authorisation check
-//        try {
-//            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-//        } catch (AuthorizationException e) {
-//            return new ApiResult<>(null, 500, e.getMessage());
-//        }
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        } catch (AuthorizationException e) {
+            return new ApiResult<>(null, 500, e.getMessage());
+        }
 
         if (consultationRepresentationIn == null) return null;
         if (consultationRepresentationIn.getConsult() == null) return null;

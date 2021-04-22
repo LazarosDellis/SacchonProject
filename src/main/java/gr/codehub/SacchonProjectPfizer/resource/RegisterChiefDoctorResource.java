@@ -38,6 +38,7 @@ public class RegisterChiefDoctorResource extends ServerResource {
         return new ApiResult<>(new ChiefDoctorRepresentation(chiefDoctor), 200,
                 "The ChiefDoctor was successfully created");
     }
+
     public boolean usernameExists(String candidateUsername) {
         EntityManager em = JpaUtil.getEntityManager();
         ChiefDoctor c = null;
@@ -52,15 +53,5 @@ public class RegisterChiefDoctorResource extends ServerResource {
         return c != null;
     }
 
-    @Get
-    public boolean usernameExists() {
-        String candidateUsername = "";
 
-        try {
-            candidateUsername = getQueryValue("username");
-        } catch (Exception e) {
-            return false;
-        }
-        return usernameExists(candidateUsername);
-    }
 }

@@ -35,12 +35,19 @@ public class PatientsWithNoActivityResource extends ServerResource {
             e.printStackTrace();
         }
 
-//        //authorisation check
-//        try {
-//            ResourceUtils.checkRole(this, Shield.ROLE_USER);
-//        } catch (AuthorizationException e) {
-//            return new ApiResult<>(null, 500, e.getMessage());
-//        }
+        try {
+                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+            } catch (AuthorizationException e1) {
+                try{
+                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+                }catch (AuthorizationException e2) {
+                    return new ApiResult<>(null, 400, "No Authorization");
+                }
+            }
+
+
+
+
 
 
         EntityManager em = JpaUtil.getEntityManager();

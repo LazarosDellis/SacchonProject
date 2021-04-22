@@ -36,7 +36,7 @@ public class DoctorsWithNoActivityResource extends ServerResource {
             e.printStackTrace();
         }
 
-//        //authorisation check
+        //authorisation check
         try {
             ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         } catch (AuthorizationException e) {

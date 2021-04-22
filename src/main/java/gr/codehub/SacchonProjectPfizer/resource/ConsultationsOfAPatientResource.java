@@ -27,7 +27,7 @@ public class ConsultationsOfAPatientResource extends ServerResource {
     @Get("json")
     public ApiResult<List<ConsultationRepresentation>> getConsultation() {
 
-        //authorisation check
+      //  authorisation check
         try {
             ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
         } catch (AuthorizationException e) {

@@ -24,7 +24,7 @@ public class DoctorListResource  extends ServerResource  {
     @Get("json")
     public ApiResult<List<DoctorRepresentation>> getDoctor(){
 
-//        //authorisation check
+        //authorisation check
         try {
             ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
         } catch (AuthorizationException e) {
@@ -47,25 +47,5 @@ public class DoctorListResource  extends ServerResource  {
         return new ApiResult<>(doctorRepresentationList, 200, "ok");
     }
 
-//    @Post("json") //create
-//    public ApiResult<PatientRepresentation> add(PatientRepresentation patientRepresentationIn){
-//
-//        //authorisation check
-//        try {
-//            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-//        } catch (AuthorizationException e) {
-//            return new ApiResult<>(null, 500, e.getMessage());
-//        }
-//
-//        if (patientRepresentationIn ==null) return null;
-//        if (patientRepresentationIn.getFullName() == null) return null;
-//
-//        Patient patient = patientRepresentationIn.createPatient();
-//        EntityManager em = JpaUtil.getEntityManager();
-//        PatientRepository patientRepository = new PatientRepository(em);
-//        patientRepository.save(patient);
-//        PatientRepresentation p = new PatientRepresentation(patient);
-//        return p;
-//    }
 
 }

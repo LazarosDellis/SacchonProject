@@ -1,8 +1,6 @@
 package gr.codehub.SacchonProjectPfizer.repository;
 
-import gr.codehub.SacchonProjectPfizer.model.Consultation;
-import gr.codehub.SacchonProjectPfizer.model.Doctor;
-import gr.codehub.SacchonProjectPfizer.model.Measurement;
+
 import gr.codehub.SacchonProjectPfizer.model.Patient;
 
 import javax.persistence.EntityManager;

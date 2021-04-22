@@ -55,6 +55,22 @@ public class AVGMeasurementResource  extends ServerResource {
             e.printStackTrace();
         }
 
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
+        } catch (AuthorizationException e) {
+            try {
+                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+            } catch (AuthorizationException e1) {
+                try{
+                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+                }catch (AuthorizationException e2) {
+                    return new ApiResult<>(null, 500, e.getMessage());
+                }
+            }
+
+
+        }
+
 
         EntityManager em = JpaUtil.getEntityManager();
 

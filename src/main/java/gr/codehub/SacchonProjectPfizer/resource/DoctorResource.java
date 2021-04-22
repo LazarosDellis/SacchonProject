@@ -35,15 +35,13 @@ public class DoctorResource extends ServerResource {
         //authorisation check
         //authorisation check
 
-            try {
-                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-            } catch (AuthorizationException e1) {
+
                 try{
                     ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
                 }catch (AuthorizationException e2) {
-                    return new ApiResult<>(null, 500, e1.getMessage());
+                    return new ApiResult<>(null, 500, e2.getMessage());
                 }
-            }
+
 
 
 

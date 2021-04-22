@@ -22,44 +22,10 @@ public class ConsultationResource extends ServerResource {
 
     @Override
     protected void doInit() {
-   //     patientId = Integer.parseInt(getAttribute("patientId"));
-        id = Integer.parseInt(getAttribute("id"));
-        doctorId = Integer.parseInt(getAttribute("doctorId"));
-    }
+          id = Integer.parseInt(getAttribute("id"));
+        }
 
-    @Get("json") // get
-//    public ApiResult<ConsultationRepresentation> getConsultation() {
-//
-//        //authorisation check
-//        try {
-//            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-//        } catch (AuthorizationException e) {
-//            try {
-//                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-//            } catch (AuthorizationException e1) {
-//                try{
-//                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
-//                }catch (AuthorizationException e2) {
-//                    return new ApiResult<>(null, 500, e.getMessage());
-//                }
-//            }
-//
-//
-//        }
-//
-//        EntityManager em = JpaUtil.getEntityManager();
-//
-//
-//
-//        ConsultationRepository consultationRepository = new ConsultationRepository(em);
-//        Consultation consultation = consultationRepository.read(patientId);
-//        ConsultationRepresentation consultationRepresentation2 = new ConsultationRepresentation(consultation);
-//        em.close();
-//
-//
-//        return new ApiResult<>(consultationRepresentation2, 200, "ok");
-//
-//    }
+
 
     @Post("json")// create consultation from a doctor to a patient
     public ApiResult<ConsultationRepresentation> add(ConsultationRepresentation consultationRepresentationIn) {
@@ -106,6 +72,7 @@ public class ConsultationResource extends ServerResource {
             return new ApiResult<>(null, 500, e.getMessage());
         }
 
+
         EntityManager em = JpaUtil.getEntityManager();
 
         int doctorId = consultationRepresentation.getDoctorId();
@@ -132,6 +99,12 @@ public class ConsultationResource extends ServerResource {
 
     @Delete("txt")
     public boolean deleteConsultation() {
+        //authorisation check
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        } catch (AuthorizationException e) {
+            return false;
+        }
         EntityManager em = JpaUtil.getEntityManager();
         ConsultationRepository consultationRepository = new ConsultationRepository(em);
         return consultationRepository.delete(id);

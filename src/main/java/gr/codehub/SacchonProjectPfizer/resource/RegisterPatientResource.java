@@ -46,15 +46,5 @@ public class RegisterPatientResource extends ServerResource {
         return p != null;
     }
 
-    @Get
-    public boolean usernameExists() {
-        String candidateUsername = "";
 
-        try {
-            candidateUsername = getQueryValue("username");
-        } catch (Exception e) {
-            return false;
-        }
-        return usernameExists(candidateUsername);
-    }
 }

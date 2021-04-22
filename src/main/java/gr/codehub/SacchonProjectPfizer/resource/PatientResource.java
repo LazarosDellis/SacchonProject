@@ -29,9 +29,7 @@ public class PatientResource extends ServerResource {
     public PatientRepresentation getPatient() {
 
         //authorisation check
-        try {
-            ResourceUtils.checkRole(this, Shield.ROLE_PATIENT);
-        } catch (AuthorizationException e) {
+
             try {
                 ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
             } catch (AuthorizationException e1) {
@@ -43,7 +41,7 @@ public class PatientResource extends ServerResource {
             }
 
 
-        }
+
 
         EntityManager em = JpaUtil.getEntityManager();
         PatientRepository patientRepository = new PatientRepository(em);
@@ -58,6 +56,20 @@ public class PatientResource extends ServerResource {
 
     @Post("json")
     public PatientRepresentation add(PatientRepresentation patientRepresentationIn){
+
+        //authorisation check
+
+        try {
+            ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+        } catch (AuthorizationException e1) {
+            try{
+                ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+            }catch (AuthorizationException e2) {
+
+            }
+        }
+
+
 
         if (patientRepresentationIn ==null) return null;
         if (patientRepresentationIn.getFullName() == null) return null;
