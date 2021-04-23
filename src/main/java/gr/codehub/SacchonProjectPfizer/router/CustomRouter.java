@@ -22,10 +22,23 @@ public class CustomRouter {
 
         router.attach("/registerChiefDoctor", RegisterChiefDoctorResource.class);
         router.attach("/login", LoginResource.class);
-      //  router.attach("/logIn", LoginResource.class);
+
+
+           return router;
+    }
+
+
+    public Router protectedResources(){
+        Router router = new Router();
 
 
 
+
+        router.attach("/patient/{id}", PatientResource.class); //get, put, delete
+
+
+
+        router.attach("/patient/measurements/dateFrom/{from}/dateTo/{to}",PatientsWithNoActivityResource.class ); //4. CHIEFDOCTOR
 
         router.attach("/consultation/{id}", GetOneConsultationResource.class);
         router.attach("/patient", PatientListResource.class); //get, post
@@ -35,7 +48,7 @@ public class CustomRouter {
         router.attach("/doctor/{id}", DoctorResource.class); // get one / post / put
 
         router.attach("/measurement/{id}", MeasurementResource.class); //get , post
-
+      //  router.attach("/measurement", MeasurementResource.class);//post
         router.attach("/noPatient/noConsultation", PatientsWithNoDoctorResource.class);  //3 DOCTOR
 
         router.attach("/consultation/{id}/doctor/{doctorId}", ConsultationResource.class); // Doctor updates consultation
@@ -61,30 +74,6 @@ public class CustomRouter {
 
         router.attach("/measurement/patient/{id}/dateFrom/{from}/dateTo/{to}", PatientMeasurementsTimeRangeResource.class); //1.CHIEFDOCTOR a patient over a time range
 
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-        return router;
-    }
-
-
-    public Router protectedResources(){
-        Router router = new Router();
-
-
-
-
-        router.attach("/patient/{id}", PatientResource.class); //get, put, delete
-
-
-
-        router.attach("/patient/measurements/dateFrom/{from}/dateTo/{to}",PatientsWithNoActivityResource.class ); //4. CHIEFDOCTOR
 
 
         router.attach("/chiefDoctor", ChiefDoctorResource.class);

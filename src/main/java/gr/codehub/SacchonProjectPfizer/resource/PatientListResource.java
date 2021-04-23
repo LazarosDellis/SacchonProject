@@ -24,17 +24,17 @@ public class PatientListResource extends ServerResource {
     @Get("json")
     public ApiResult<List<PatientRepresentation>> getPatient(){
 
-//authorisation check
-//
-//            try {
-//                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
-//            } catch (AuthorizationException e1) {
-//                try{
-//                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
-//                }catch (AuthorizationException e2) {
-//                    return new ApiResult<>(null, 500, e1.getMessage());
-//                }
-//            }
+  //authorisation check
+
+            try {
+                ResourceUtils.checkRole(this, Shield.ROLE_DOCTOR);
+            } catch (AuthorizationException e1) {
+                try{
+                    ResourceUtils.checkRole(this, Shield.ROLE_ADMIN);
+                }catch (AuthorizationException e2) {
+                    return new ApiResult<>(null, 500, e1.getMessage());
+                }
+            }
 
 
 
